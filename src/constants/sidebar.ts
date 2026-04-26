@@ -7,10 +7,10 @@ export const SIDEBAR_HREFS: SidebarHref[] = [
     },
     {
         title: 'Конфигурация',
-        URLpath: 'configuration',
+        URLpath: '/configuration',
     },
     {
         title: 'Метрики',
-        URLpath: 'metrics',
+        URLpath: '/metrics',
     },
 ];
