@@ -5,5 +5,5 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
 	plugins: [tailwindcss(), sveltekit()],
-	resolve: { alias: { '~': path.resolve(__dirname, 'src') } }
+	resolve: { alias: { '~': path.resolve(__dirname, 'src') } },
 });

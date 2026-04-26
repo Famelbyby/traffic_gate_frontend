@@ -1,22 +1,18 @@
 <script lang="ts">
-	import type { Props } from "~/types/header";
+	import type { Props } from '~/types/header';
 
-    let {title = 'Заголовок'}: Props = $props();
+	let { title = 'Заголовок' }: Props = $props();
 </script>
 
 <div class="header">
-    <span class="header__title">
-        {title}
-    </span>
+	<h2 class="header__title">
+		{title}
+	</h2>
 </div>
 
 <style lang="scss" scoped>
-    .header {
-        display: flex;
-        margin-bottom: 60px;
-    }
-
-    .header__title {
-        font-size: 20px;
-    }
+	.header {
+		display: flex;
+		margin-bottom: 60px;
+	}
 </style>

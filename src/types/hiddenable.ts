@@ -1,6 +1,6 @@
-import type { Snippet } from "svelte";
+import type { Snippet } from 'svelte';
 
 export type Props = {
-    visibilityCondition: () => boolean;
-    children: Snippet<[]>;
-}
+	visibilityCondition: () => boolean;
+	children: Snippet<[]>;
+};
