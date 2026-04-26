@@ -5,3 +5,5 @@ export type SidebarHref = {
     URLpath: URLPath;
     isActivated?: boolean;
 }
+
+export type Theme = 'dark' | 'light';
