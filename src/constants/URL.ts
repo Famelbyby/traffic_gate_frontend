@@ -1,1 +1,1 @@
-export type URLPath = '/' | 'metrics' | 'configuration';
+export type URLPath = '/' | '/metrics' | '/configuration';
