@@ -1,22 +1,22 @@
 <script lang="ts">
-	import SidebarHrefs from "./sidebarHrefs.svelte";
-	import SidebarLogo from "./sidebarLogo.svelte";
+	import SidebarHrefs from './sidebarHrefs.svelte';
+	import SidebarLogo from './sidebarLogo.svelte';
 </script>
 
 <div class="sidebar">
-    <SidebarLogo />
-    <SidebarHrefs />
+	<SidebarLogo />
+	<SidebarHrefs />
 </div>
 
 <style lang="scss" scoped>
-    .sidebar {
+	.sidebar {
 		padding: 20px;
 		display: flex;
 		flex-direction: column;
-        flex-grow: 1;
+		flex-grow: 1;
 		border-right: 1px solid gray;
 		box-sizing: border-box;
 
-        row-gap: 60px;
+		row-gap: 60px;
 	}
 </style>

@@ -1,3 +1,1 @@
-<div class="sidebar-logo">
-    TrafficGate
-</div>
+<div class="sidebar-logo">TrafficGate</div>
