@@ -34,6 +34,6 @@
 
 	.cell-stat__value {
 		font-size: 25px;
-    	color: #6e1313;
+		color: #6e1313;
 	}
 </style>
