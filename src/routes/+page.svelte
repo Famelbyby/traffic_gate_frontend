@@ -6,17 +6,19 @@
 	import { OVERALL_STATS_MOCK } from '~/constants/mocks';
 
 	let stats = $state(OVERALL_STATS_MOCK);
+	let pending = $state(true);
 
 	$effect(() => {
 		setInterval(async () => {
 			stats = await getOverallStats();
+			pending = false;
 		}, UPDATE_INTERVAL);
 	});
 </script>
 
 <div class="main-page">
 	<Header title="Общая статистика" />
-	<RowStats className="row-stats_overall" {stats} />
+	<RowStats className="row-stats_overall" {stats} {pending} />
 </div>
 
 <style lang="scss" scoped>
