@@ -13,7 +13,12 @@
 
 <style lang="scss" scoped>
 	.row-stats {
-		display: flex;
-		flex-wrap: wrap;
+		display: grid;
+		grid-template-columns: repeat(3, 300px);
+		width: 100%;
+    	justify-content: space-evenly;
+		align-content: center;
+		row-gap: 150px;
+		flex-grow: 1;
 	}
 </style>

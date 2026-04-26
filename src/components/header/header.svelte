@@ -5,18 +5,14 @@
 </script>
 
 <div class="header">
-	<span class="header__title">
+	<h2 class="header__title">
 		{title}
-	</span>
+	</h2>
 </div>
 
 <style lang="scss" scoped>
 	.header {
 		display: flex;
 		margin-bottom: 60px;
-	}
-
-	.header__title {
-		font-size: 20px;
 	}
 </style>

@@ -32,7 +32,6 @@ export const OVERALL_STATS_MOCK: CellStatProps[] = [
 	{
 		title: 'CPU, %',
 		value: 20,
-		withBorder: true,
 	},
 	{
 		title: 'Время работы',
@@ -50,4 +49,8 @@ export const OVERALL_STATS_MOCK: CellStatProps[] = [
 		title: 'Ошибки, %',
 		value: '0.06',
 	},
+	{
+		title: 'RPS',
+		value: '1783',
+	}
 ];

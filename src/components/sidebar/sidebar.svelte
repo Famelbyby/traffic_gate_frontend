@@ -18,5 +18,6 @@
 		box-sizing: border-box;
 
 		row-gap: 60px;
+		max-width: 220px;
 	}
 </style>

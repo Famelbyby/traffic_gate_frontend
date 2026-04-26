@@ -20,6 +20,8 @@
 		margin: 0;
 		box-sizing: border-box;
 		overflow: hidden;
+		background-color: #fcf4ea9e;
+		font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 	}
 
 	.general-layout {
@@ -30,6 +32,6 @@
 	.page-content {
 		display: flex;
 		flex-grow: 3;
-		padding: 10px;
+		padding: 30px;
 	}
 </style>

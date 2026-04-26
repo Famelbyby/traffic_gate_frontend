@@ -15,6 +15,7 @@
 		flex-direction: column;
 
 		align-items: start;
+		flex-grow: 1;
 	}
 
 	.row-stats_overall {
