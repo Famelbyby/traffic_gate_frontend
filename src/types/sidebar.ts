@@ -1,4 +1,4 @@
-import type { URLPath } from "~/constants/URL";
+import type { URLPath } from '~/types/URL';
 
 export type SidebarHref = {
     title: string;

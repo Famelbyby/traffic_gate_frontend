@@ -35,7 +35,7 @@ export const OVERALL_STATS_MOCK: CellStatProps[] = [
 	},
 	{
 		title: 'Время работы',
-		value: '00:12:38',
+		value: Date.now(),
 	},
 	{
 		title: 'RAM, Gb',
@@ -52,5 +52,5 @@ export const OVERALL_STATS_MOCK: CellStatProps[] = [
 	{
 		title: 'RPS',
 		value: '1783',
-	}
+	},
 ];
