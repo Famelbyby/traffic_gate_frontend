@@ -16,16 +16,18 @@
 
 <style lang="scss" scoped>
 	.base-button {
-		padding: 5px 7px;
+		padding: 7px 10px;
 		border-radius: 7px;
 		box-shadow: 1px 1px 2px black;
 	}
 
 	.base-button_confirm {
 		background-color: blue;
+		color: white;
 	}
 
 	.base-button_cancel {
-		background-color: red;
+		background-color: rgb(220, 0, 0);
+		color: white;
 	}
 </style>

@@ -23,6 +23,10 @@
 		flex-direction: column;
 		align-items: center;
 		row-gap: 10px;
+		background: rgb(255 233 219 / 70%);
+		padding: 10px 30px;
+		border-radius: 20px;
+		box-shadow: 2px 4px 3px #ff88a22b;
 	}
 
 	.metric-card__header {
