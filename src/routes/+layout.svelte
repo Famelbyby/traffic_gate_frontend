@@ -32,6 +32,6 @@
 	.page-content {
 		display: flex;
 		flex-grow: 3;
-		padding: 30px;
+		padding: 30px 0 30px 30px;
 	}
 </style>

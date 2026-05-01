@@ -28,6 +28,7 @@
 
 		align-items: start;
 		flex-grow: 1;
+		padding-right: 30px;
 	}
 
 	.row-stats_overall {
