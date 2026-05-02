@@ -4,19 +4,27 @@
 	import remove from '~/lib/assets/close.png';
 
 	let { title, footer, graphData, url }: Metric = $props();
+	let cardRef = $state<HTMLDivElement | null>(null);
+	let closeButtonRef = $state<HTMLDivElement | null>(null);
 
-	function closeClicked() {
-		//добавить модалку
+	function clicked(e: Event) {
+		if (cardRef && e.target !== cardRef) {
+			e.preventDefault();
+		}
+
+		if (closeButtonRef && e.target === closeButtonRef) {
+			console.log('here');
+		}
 	}
 </script>
 
-<a href={`/metric${url}`}>
-	<div class="metric-card">
+<a href={`/metric${url}`} onclick={clicked}>
+	<div class="metric-card" bind:this={cardRef}>
 		<div class="metric-card__header">
 			{title}
-			<button type="button" class="metric-card-remove" aria-label="close-card" onclick={closeClicked}>
-				<img class="metric-card-remove__img" src={remove} alt="Удалить метрику" title="Удалить метрику"/>
-			</button>
+			<div class="metric-card-remove">
+				<img class="metric-card-remove__img" src={remove} alt="Удалить метрику" title="Удалить метрику" bind:this={closeButtonRef}/>
+			</div>
 		</div>
 		<div class="metric-card__graph">
 			<MetricCardGraph {graphData} {url} />
@@ -52,9 +60,9 @@
 		width: 15px;
 		height: 15px;
 		cursor: pointer;
-		position: absolute;
 		right: 10px;
 		top: 10px;
+		position: absolute;
 
 		&:hover {
 			opacity: 1;
