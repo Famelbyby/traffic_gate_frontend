@@ -1,6 +1,6 @@
 <script lang="ts">
 	import MetricPageHeader from "./metricPageHeader.svelte";
-	import MetricPageGraph from "../metricCard/metricPageGraph.svelte";
+	import MetricPageGraph from "./metricPageGraph.svelte";
 	import { onMount } from "svelte";
 	import RowStats from "../rowStats/rowStats.svelte";
 	import type {Props } from "~/types/metricPage";
