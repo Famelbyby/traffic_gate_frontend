@@ -1,0 +1,1 @@
+export const UPDATE_METRICS_INTERVAL = 3000;
