@@ -4,6 +4,7 @@ export type Metric = {
 	footer: string;
 	graphData: GraphPoint[];
 	url: string;
+	workTime?: number;
 };
 
 export type GraphPoint = {
