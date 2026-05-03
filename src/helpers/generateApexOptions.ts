@@ -5,12 +5,11 @@ export function generateApexOptions<T = string>(
 	values: T[],
 	coords: number[],
 	height = 400,
-	width = 400,
-	color = '#1C64F2',
+	width = 600,
 ) {
 	return <ApexOptions>{
 		chart: {
-			background: '#FFEBCD',
+			background: 'inherit',
 			height: `${height}px`,
 			width: `${width}px`,
 			type: 'area',
@@ -33,8 +32,8 @@ export function generateApexOptions<T = string>(
 			gradient: {
 				opacityFrom: 0.55,
 				opacityTo: 0,
-				shade: color,
-				gradientToColors: ['violet', color, 'blue'],
+				shade: '#ff6767',
+				gradientToColors: ['pink', '#ff6767'],
 			},
 		},
 		dataLabels: {
@@ -44,7 +43,7 @@ export function generateApexOptions<T = string>(
 			width: 6,
 		},
 		grid: {
-			show: false,
+			show: true,
 			strokeDashArray: 4,
 			padding: {
 				left: 2,
@@ -56,7 +55,7 @@ export function generateApexOptions<T = string>(
 			{
 				name: title,
 				data: values,
-				color: color,
+				color: '#ff6767',
 			},
 		],
 		xaxis: {
@@ -72,7 +71,10 @@ export function generateApexOptions<T = string>(
 			},
 		},
 		yaxis: {
-			show: false,
+			show: true,
+			padding: {
+				left: 2,
+			},
 		},
 	};
 }

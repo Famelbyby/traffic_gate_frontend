@@ -1,21 +1,32 @@
 <script lang="ts">
 	import type { Metric } from '~/types/metric';
 	import MetricCardGraph from './metricCardGraph.svelte';
+	import remove from '~/lib/assets/close.png';
 
 	let { title, footer, graphData, url }: Metric = $props();
+
+	function closeClicked() {
+		//добавить модалку
+	}
 </script>
 
-<div class="metric-card">
-	<div class="metric-card__header">
-		{title}
+<a href={`/metric${url}`}>
+	<div class="metric-card">
+		<div class="metric-card__header">
+			{title}
+			<button type="button" class="metric-card-remove" aria-label="close-card" onclick={closeClicked}>
+				<img class="metric-card-remove__img" src={remove} alt="Удалить метрику" title="Удалить метрику"/>
+			</button>
+		</div>
+		<div class="metric-card__graph">
+			<MetricCardGraph {graphData} {url} />
+		</div>
+		<div class="metric-card__footer">
+			{footer}
+		</div>
 	</div>
-	<div class="metric-card__graph">
-		<MetricCardGraph {graphData} {url} />
-	</div>
-	<div class="metric-card__footer">
-		{footer}
-	</div>
-</div>
+</a>
+
 
 <style lang="scss" scoped>
 	.metric-card {
@@ -23,6 +34,31 @@
 		flex-direction: column;
 		align-items: center;
 		row-gap: 10px;
+		background: rgb(255 233 219 / 70%);
+		padding: 10px 30px;
+		border-radius: 20px;
+		box-shadow: 2px 4px 3px #ff88a22b;
+		cursor: pointer;
+		transition-duration: 0.3s;
+		position: relative;
+
+		&:hover {
+			transform: translateY(-10px);
+		}
+	}
+
+	.metric-card-remove__img {
+		opacity: 0.5;
+		width: 15px;
+		height: 15px;
+		cursor: pointer;
+		position: absolute;
+		right: 10px;
+		top: 10px;
+
+		&:hover {
+			opacity: 1;
+		}
 	}
 
 	.metric-card__header {

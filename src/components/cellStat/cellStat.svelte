@@ -27,7 +27,9 @@
 		background-color: #ffecce;
 		box-sizing: border-box;
 		flex-direction: column;
-		height: 225px;
+		min-height: 225px;
+		height: 18vh;
+		width: 15vw;
 	}
 
 	.cell-stat_pending {

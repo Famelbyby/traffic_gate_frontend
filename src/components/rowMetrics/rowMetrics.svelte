@@ -16,5 +16,6 @@
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: space-around;
+		row-gap: 20px;
 	}
 </style>

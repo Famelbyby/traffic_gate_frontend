@@ -14,5 +14,6 @@
 		flex-direction: column;
 		overflow-y: auto;
 		min-width: 100%;
+		padding-right: 30px;
 	}
 </style>
