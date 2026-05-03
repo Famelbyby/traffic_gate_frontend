@@ -3,7 +3,7 @@
 </script>
 
 <div class="add-metric-card">
-	<Button text="Добавить метрику" confirm />
+	<Button text="Добавить метрику" confirm pink />
 </div>
 
 <style lang="scss" scoped>
@@ -13,7 +13,7 @@
 		align-items: center;
 		justify-content: center;
 
-		width: 560px;
+		width: 660px;
 		height: 509px;
 		background: rgb(255 233 219 / 70%);
 		padding: 10px 30px;
