@@ -10,7 +10,7 @@
 
 	let options = $derived(
 		generateApexOptions<number>(url, graphValues, graphTimes),
-	);	
+	);
 </script>
 
 <GraphCard {options} />

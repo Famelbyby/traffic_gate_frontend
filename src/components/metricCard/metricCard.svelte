@@ -13,7 +13,7 @@
 		}
 
 		if (closeButtonRef && e.target === closeButtonRef) {
-			console.log('here');
+			//console.log('here');
 		}
 	}
 </script>
@@ -23,7 +23,12 @@
 		<div class="metric-card__header">
 			{title}
 			<div class="metric-card-remove">
-				<img class="metric-card-remove__img" src={remove} alt="Удалить метрику" title="Удалить метрику" bind:this={closeButtonRef}/>
+				<img
+					class="metric-card-remove__img"
+					src={remove}
+					alt="Удалить метрику"
+					title="Удалить метрику"
+					bind:this={closeButtonRef} />
 			</div>
 		</div>
 		<div class="metric-card__graph">
@@ -34,7 +39,6 @@
 		</div>
 	</div>
 </a>
-
 
 <style lang="scss" scoped>
 	.metric-card {

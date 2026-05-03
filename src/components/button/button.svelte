@@ -1,7 +1,13 @@
 <script lang="ts">
 	import type { Props } from '~/types/button';
 
-	let { text, onClick, confirm = false, cancel = false, pink = false }: Props = $props();
+	let {
+		text,
+		onClick,
+		confirm = false,
+		cancel = false,
+		pink = false,
+	}: Props = $props();
 </script>
 
 <button

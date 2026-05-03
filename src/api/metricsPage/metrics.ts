@@ -5,11 +5,11 @@ import { generateMetricsMocks } from '~/helpers/generateMetricsMocks';
 const generator = generateMetricsMocks();
 
 export async function getMetrics() {
-    const result = await AxiosClient.get<Metric[]>('/metrics');
+	const result = await AxiosClient.get<Metric[]>('/metrics');
 
-    if (result.error !== undefined) {
-        return generator();
-    }
+	if (result.error !== undefined) {
+		return generator();
+	}
 
-    return result.data!;
+	return result.data!;
 }

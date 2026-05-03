@@ -14,7 +14,7 @@
 		if (metricData === undefined) {
 			redirect(303, '/metrics');
 		}
-	})
+	});
 </script>
 
 <div class="metric-page">

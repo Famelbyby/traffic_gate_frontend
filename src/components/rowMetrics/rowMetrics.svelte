@@ -14,7 +14,7 @@
 
 		return () => {
 			clearInterval(intervalId);
-		}
+		};
 	});
 </script>
 

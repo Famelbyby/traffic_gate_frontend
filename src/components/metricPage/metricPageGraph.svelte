@@ -9,8 +9,14 @@
 	let graphTimes = $derived(graphData.map((graphPoint) => graphPoint.time));
 
 	let options = $derived(
-		generateApexOptions<number>(url, graphValues, graphTimes, height, width),
-	);	
+		generateApexOptions<number>(
+			url,
+			graphValues,
+			graphTimes,
+			height,
+			width,
+		),
+	);
 </script>
 
 <GraphCard {options} />

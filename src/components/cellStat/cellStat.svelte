@@ -4,7 +4,8 @@
 	let { title, value, pending, isMetricStat = false }: Props = $props();
 </script>
 
-<div class={`cell-stat ${isMetricStat ? 'cell-stat_metric': ''} ${pending ? 'cell-stat_pending' : ''}`}>
+<div
+	class={`cell-stat ${isMetricStat ? 'cell-stat_metric' : ''} ${pending ? 'cell-stat_pending' : ''}`}>
 	<span
 		class={`cell-stat__title ${pending ? 'cell-stat__title_pending' : ''}`}>
 		{!pending ? title : 'Загружаем'}
