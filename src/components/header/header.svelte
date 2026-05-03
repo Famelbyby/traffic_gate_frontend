@@ -13,6 +13,6 @@
 <style lang="scss" scoped>
 	.header {
 		display: flex;
-		margin-bottom: 60px;
+		margin-bottom: 30px;
 	}
 </style>
