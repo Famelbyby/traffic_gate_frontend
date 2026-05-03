@@ -40,5 +40,11 @@
 	.sidebar-theme__img {
 		width: 20px;
 		height: 20px;
+		opacity: 0.5;
+		transition-duration: 0.3s;
+
+		&:hover {
+			opacity: 1;
+		}
 	}
 </style>

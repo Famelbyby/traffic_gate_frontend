@@ -2,12 +2,12 @@
 	import CellStat from '~/components/cellStat/cellStat.svelte';
 	import type { Props } from '~/types/rowStats';
 
-	let { stats, className, pending }: Props = $props();
+	let { stats, className, pending, isMetricPage }: Props = $props();
 </script>
 
 <div class={`row-stats ${className || ''}`}>
 	{#each stats as stat (stat.title)}
-		<CellStat {...stat} {pending} />
+		<CellStat {...stat} {pending} isMetricStat={isMetricPage}/>
 	{/each}
 </div>
 

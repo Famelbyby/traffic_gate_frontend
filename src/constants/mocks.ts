@@ -1,29 +1,27 @@
 import { generateGraphData } from '~/helpers/generateGraphData';
 import type { Props as CellStatProps } from '~/types/cellStat';
-import type { GraphPoint, Metric } from '~/types/metric';
-
-export const GRATH_DATA_MOCK: GraphPoint[] = generateGraphData(30);
+import type { Metric } from '~/types/metric';
 
 export const METRICS_DATA_MOCK: Metric[] = [
 	{
 		id: 0,
 		title: 'Bucket',
 		footer: 'RPS 312',
-		graphData: GRATH_DATA_MOCK,
+		graphData: generateGraphData(),
 		url: '/bucket',
 	},
 	{
 		id: 1,
 		title: 'Orders',
 		footer: 'RPS 112',
-		graphData: GRATH_DATA_MOCK,
+		graphData: generateGraphData(),
 		url: '/orders',
 	},
 	{
 		id: 2,
 		title: 'Moderation',
 		footer: 'RPS 312',
-		graphData: GRATH_DATA_MOCK,
+		graphData: generateGraphData(),
 		url: '/moderation',
 	},
 ];

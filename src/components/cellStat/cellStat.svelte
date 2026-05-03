@@ -1,10 +1,10 @@
 <script lang="ts">
 	import type { Props } from '~/types/cellStat';
 
-	let { title, value, pending }: Props = $props();
+	let { title, value, pending, isMetricStat = false }: Props = $props();
 </script>
 
-<div class={`cell-stat ${pending ? 'cell-stat_pending' : ''}`}>
+<div class={`cell-stat ${isMetricStat ? 'cell-stat_metric': ''} ${pending ? 'cell-stat_pending' : ''}`}>
 	<span
 		class={`cell-stat__title ${pending ? 'cell-stat__title_pending' : ''}`}>
 		{!pending ? title : 'Загружаем'}
@@ -36,6 +36,12 @@
 		animation: pending-cell 2s ease-in 0.5s infinite both alternate;
 	}
 
+	.cell-stat_metric {
+		border-left: 10px solid #ff6767;
+		background-color: #ffbcbc;
+		color: white;
+	}
+
 	.cell-stat__title {
 		font-size: 30px;
 		text-align: center;
@@ -49,6 +55,7 @@
 	.cell-stat__value {
 		font-size: 25px;
 		color: #6e1313;
+		text-align: center;
 	}
 
 	@keyframes pending-cell {
