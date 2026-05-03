@@ -10,4 +10,8 @@ export type MetricPageGraph = CardProps & {
 	height: number;
 };
 
+export type MetricPageHeader = {
+	url: string;
+};
+
 export type MetricStat = 'max' | 'min' | 'avg' | '99p' | 'time' | '50p';

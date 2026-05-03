@@ -1,8 +1,11 @@
 <script>
+	import { getTheme } from '~/helpers/theme.svelte';
 	import Button from '../button/button.svelte';
+
+	let theme = $derived(getTheme());
 </script>
 
-<div class="add-metric-card">
+<div class={`add-metric-card add-metric-card_${theme}`}>
 	<Button text="Добавить метрику" confirm pink />
 </div>
 
@@ -19,5 +22,10 @@
 		padding: 10px 30px;
 		border-radius: 20px;
 		box-shadow: 2px 4px 3px #ff88a22b;
+	}
+
+	.add-metric-card_dark {
+		background: #242472;
+		box-shadow: 2px 4px 3px #0e00ff2b;
 	}
 </style>

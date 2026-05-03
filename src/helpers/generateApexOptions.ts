@@ -1,4 +1,5 @@
 import type { ApexOptions } from 'apexcharts';
+import { getTheme } from './theme.svelte';
 
 export function generateApexOptions<T = string>(
 	title: string,
@@ -7,6 +8,10 @@ export function generateApexOptions<T = string>(
 	height = 400,
 	width = 600,
 ) {
+	const theme = getTheme();
+	const mainColor = theme === 'light' ? '#ff6767' : '#6c9af5';
+	const secondColor = theme === 'light' ? 'pink' : 'green';
+
 	return <ApexOptions>{
 		chart: {
 			background: 'inherit',
@@ -32,8 +37,8 @@ export function generateApexOptions<T = string>(
 			gradient: {
 				opacityFrom: 0.55,
 				opacityTo: 0,
-				shade: '#ff6767',
-				gradientToColors: ['pink', '#ff6767'],
+				shade: mainColor,
+				gradientToColors: [secondColor, mainColor],
 			},
 		},
 		dataLabels: {
@@ -55,7 +60,7 @@ export function generateApexOptions<T = string>(
 			{
 				name: title,
 				data: values,
-				color: '#ff6767',
+				color: mainColor,
 			},
 		],
 		xaxis: {

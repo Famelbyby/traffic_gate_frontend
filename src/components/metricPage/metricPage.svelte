@@ -5,12 +5,14 @@
 	import RowStats from '../rowStats/rowStats.svelte';
 	import type { Props } from '~/types/metricPage';
 	import { createMetricStats } from '~/helpers/createMetricStats';
+	import { getTheme } from '~/helpers/theme.svelte';
 
 	let { metricData }: Props = $props();
 	let width = $state<number>();
 	let height = $state<number>();
 
 	let stats = $derived.by(() => createMetricStats(metricData));
+	let theme = $derived(getTheme());
 
 	onMount(() => {
 		width = window.innerWidth - 300;
@@ -22,7 +24,7 @@
 	<MetricPageHeader url={metricData.url} />
 	{#if width && height}
 		<MetricPageGraph {...metricData} {width} {height} />
-		<RowStats {stats} isMetricPage={true} />
+		<RowStats {stats} isMetricPage={theme === 'light'} />
 	{/if}
 </div>
 
