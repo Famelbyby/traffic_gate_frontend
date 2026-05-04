@@ -9,6 +9,7 @@ export const METRICS_DATA_MOCK: Metric[] = [
 		footer: 'RPS',
 		graphData: generateGraphData(),
 		url: '/bucket',
+		type: 'RPS',
 	},
 	{
 		id: 1,
@@ -16,6 +17,7 @@ export const METRICS_DATA_MOCK: Metric[] = [
 		footer: 'Service CPU',
 		graphData: generateGraphData(),
 		url: '/orders',
+		type: 'CPU',
 	},
 	{
 		id: 2,
@@ -23,6 +25,7 @@ export const METRICS_DATA_MOCK: Metric[] = [
 		footer: 'RAM load',
 		graphData: generateGraphData(),
 		url: '/moderation',
+		type: 'RAM',
 	},
 ];
 

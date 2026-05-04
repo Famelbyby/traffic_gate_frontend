@@ -80,6 +80,9 @@ export function generateApexOptions<T = string>(
 			padding: {
 				left: 2,
 			},
+			labels: {
+				colors: theme === 'dark' ? 'white': 'gray',
+			}
 		},
 	};
 }

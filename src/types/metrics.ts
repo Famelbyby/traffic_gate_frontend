@@ -1,0 +1,1 @@
+export type MetricsUpdateInterval = '3s' | '5s' | '15s' | '30s' | '1m';

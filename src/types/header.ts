@@ -1,3 +1,6 @@
+import type { Snippet } from "./general";
+
 export type Props = {
-	title: string;
+	title?: string;
+	snippet?: Snippet;
 };

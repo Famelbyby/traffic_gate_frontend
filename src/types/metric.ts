@@ -1,3 +1,5 @@
+export type MetricType = 'CPU' | 'RPS' | 'RAM';
+
 export type Metric = {
 	id: number;
 	title: string;
@@ -5,6 +7,8 @@ export type Metric = {
 	graphData: GraphPoint[];
 	url: string;
 	workTime?: number;
+	removeMetric?: (metric: Metric) => void;
+	type: MetricType;
 };
 
 export type GraphPoint = {
