@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { redirect } from '@sveltejs/kit';
+	import { goto } from '$app/navigation';
 	import Header from '~/components/header/header.svelte';
 	import MetricPage from '~/components/metricPage/metricPage.svelte';
 	import { METRICS_DATA_MOCK } from '~/constants/mocks';
@@ -14,7 +14,7 @@
 
 	$effect(() => {
 		if (metricData === undefined) {
-			redirect(303, '/metrics');
+			goto('/metrics');
 		}
 	});
 </script>

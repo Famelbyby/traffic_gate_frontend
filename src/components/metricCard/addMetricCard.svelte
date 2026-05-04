@@ -1,12 +1,21 @@
-<script>
+<script lang="ts">
 	import { getTheme } from '~/helpers/theme.svelte';
 	import Button from '../button/button.svelte';
+	import type {AddMetricCard as Props} from '~/types/metricCard';
+
+	let {pending}: Props = $props();
 
 	let theme = $derived(getTheme());
 </script>
 
 <div class={`add-metric-card add-metric-card_${theme}`}>
-	<Button text="Добавить метрику" confirm pink />
+	{#if pending}
+		<span class="add-metric-card__pending-text">
+			Загружаем
+		</span>
+	{:else}
+		<Button text="Добавить метрику" confirm pink />
+	{/if}
 </div>
 
 <style lang="scss" scoped>
@@ -27,5 +36,20 @@
 	.add-metric-card_dark {
 		background: #242472;
 		box-shadow: 2px 4px 3px #0e00ff2b;
+	}
+
+	.add-metric-card__pending-text {
+		font-size: 40px;
+		color: gray;
+		animation: pending-text 2s ease-in 0.5s infinite both alternate;
+	}
+
+	@keyframes pending-text {
+		from {
+			color: gray;
+		}
+		to {
+			color: white;
+		}
 	}
 </style>
