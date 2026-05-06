@@ -6,10 +6,8 @@
 	import Portal from 'svelte-portal';
 	import Modal from '../modal/modal.svelte';
 	import Button from '../button/button.svelte';
-
-	export type Props = {
-		updateInterval: number;
-	}
+	import { setMetricsDataMock } from '~/helpers/metricsMocking.svelte';
+	import type { Props } from '~/types/rowMetrics';
 
 	let {updateInterval}: Props = $props();
 
@@ -31,7 +29,9 @@
 	}
 
 	function removeMetric() {
-		console.log('deleted');
+		if (metricsData !== undefined) {
+			setMetricsDataMock(metricsData.filter((val) => val.id !== removePortalMetric?.id));
+		}
 
 		closeModal();
 	}
@@ -41,18 +41,18 @@
 	}
 </script>
 
-<div class="row-metrics">
-	{#snippet removeContent()}
-		<div class="remove-metric-content">
-			Вы уверены, что хотите удалить метрику {removePortalMetric?.title}?
-		</div>
-	{/snippet}
-	{#snippet removeFooterButtons()}
-		<div class="remove-metric-footer">
-			<Button text="Удалить" confirm pink onClick={removeMetric} />
-		</div>
-	{/snippet}
+{#snippet removeContent()}
+	<div class="remove-metric-content">
+		Вы уверены, что хотите удалить метрику {removePortalMetric?.title}?
+	</div>
+{/snippet}
+{#snippet removeFooterButtons()}
+	<div class="remove-metric-footer">
+		<Button text="Удалить" confirm pink onClick={removeMetric} />
+	</div>
+{/snippet}
 
+<div class="row-metrics">
 	{#if metricsData !== undefined}
 		{#each metricsData as metric (metric.id)}
 			<MetricCard {...metric} removeMetric={activateModal} />

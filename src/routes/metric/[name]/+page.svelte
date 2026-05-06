@@ -2,13 +2,13 @@
 	import { goto } from '$app/navigation';
 	import Header from '~/components/header/header.svelte';
 	import MetricPage from '~/components/metricPage/metricPage.svelte';
-	import { METRICS_DATA_MOCK } from '~/constants/mocks';
+	import { getMetricsDataMock } from '~/helpers/metricsMocking.svelte.js';
 	import { getTheme } from '~/helpers/theme.svelte';
 
 	let { params } = $props();
 
 	let metricData = $derived(
-		METRICS_DATA_MOCK.find((metric) => metric.url.slice(1) === params.name),
+		getMetricsDataMock().find((metric) => metric.url.slice(1) === params.name),
 	);
 	let theme = $derived(getTheme());
 
