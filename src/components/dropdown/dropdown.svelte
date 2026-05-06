@@ -41,12 +41,12 @@
 </script>
 
 <div class="dropdown" bind:this={dropDown}>
-    <button type="button" class="dropdown-header" onclick={() => setOpened(!opened)} aria-label='Открыть выпадашку'>
+    <div class="dropdown-header" onclick={() => setOpened(!opened)} aria-describedby='Открыть выпадашку'>
         <DropdownItem title={selectedItem} onClick={() => {}} />
         <div class="dropdown-button">
             <img class={`dropdown-button__img ${opened ? 'dropdown-button__img_reverted' : ''}`} src={arrow} alt="Открыть/закрыть выпадашку" />
         </div>
-    </button>
+    </div>
     <div class="dropdown-menu">
         {#if opened}
             {#each items as item, index (index)}
@@ -63,6 +63,8 @@
         flex-direction: column;
         background: white;
         color: black;
+        border-radius: 10px;
+        padding: 5px 10px;
     }
 
     .dropdown-menu {
@@ -73,12 +75,14 @@
         background: inherit;
         color: inherit;
         z-index: 15;
+        left: 0;
     }
 
     .dropdown-header {
         display: flex;
         align-items: center;
         justify-content: space-around;
+        cursor: pointer;
     }
 
     .dropdown-button__img {

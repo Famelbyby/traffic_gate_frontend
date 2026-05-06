@@ -17,5 +17,7 @@
 	.header {
 		display: flex;
 		margin-bottom: 30px;
+		flex-direction: column;
+    	align-items: start;
 	}
 </style>
