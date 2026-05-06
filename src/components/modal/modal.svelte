@@ -54,7 +54,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background: rgb(255, 255, 255, 0.75);
+        background: rgb(151 151 151 / 70%);
     }
 
     .modal-window {
