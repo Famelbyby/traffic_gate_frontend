@@ -9,10 +9,14 @@
 	let pending = $state(true);
 
 	$effect(() => {
-		setInterval(async () => {
+		const intervalId = setInterval(async () => {
 			stats = await getOverallStats();
 			pending = false;
 		}, UPDATE_INTERVAL);
+
+		return () => {
+			clearInterval(intervalId);
+		};
 	});
 </script>
 

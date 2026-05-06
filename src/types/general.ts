@@ -1,0 +1,1 @@
+export type Snippet = () => ReturnType<import("svelte").Snippet>;

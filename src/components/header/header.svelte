@@ -1,13 +1,16 @@
 <script lang="ts">
 	import type { Props } from '~/types/header';
 
-	let { title = 'Заголовок' }: Props = $props();
+	let { title = 'Заголовок', snippet }: Props = $props();
 </script>
 
 <div class="header">
 	<h2 class="header__title">
 		{title}
 	</h2>
+	{#if snippet !== undefined}
+		{@render snippet()}
+	{/if}
 </div>
 
 <style lang="scss" scoped>

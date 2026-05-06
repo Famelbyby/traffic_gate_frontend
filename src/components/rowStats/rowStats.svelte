@@ -7,7 +7,7 @@
 
 <div class={`row-stats ${className || ''}`}>
 	{#each stats as stat (stat.title)}
-		<CellStat {...stat} {pending} isMetricStat={isMetricPage}/>
+		<CellStat {...stat} {pending} isMetricStat={isMetricPage} />
 	{/each}
 </div>
 

@@ -6,23 +6,26 @@ export const METRICS_DATA_MOCK: Metric[] = [
 	{
 		id: 0,
 		title: 'Bucket',
-		footer: 'RPS 312',
+		footer: 'RPS',
 		graphData: generateGraphData(),
 		url: '/bucket',
+		type: 'RPS',
 	},
 	{
 		id: 1,
 		title: 'Orders',
-		footer: 'RPS 112',
+		footer: 'Service CPU',
 		graphData: generateGraphData(),
 		url: '/orders',
+		type: 'CPU',
 	},
 	{
 		id: 2,
 		title: 'Moderation',
-		footer: 'RPS 312',
+		footer: 'RAM load',
 		graphData: generateGraphData(),
 		url: '/moderation',
+		type: 'RAM',
 	},
 ];
 

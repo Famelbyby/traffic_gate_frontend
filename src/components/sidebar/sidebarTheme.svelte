@@ -1,25 +1,13 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import type { Theme } from '~/types/sidebar';
 	import moon from '$lib/assets/moon.png';
 	import sun from '$lib/assets/sun.png';
+	import { getTheme, updateCookie } from '~/helpers/theme.svelte';
 
-	let theme = $state<Theme>('light');
-
-	function updateCookie(currentTheme: Theme) {
-		switch (currentTheme) {
-			case 'dark':
-				document.cookie = 'theme=light';
-				theme = 'light';
-				break;
-			case 'light':
-				document.cookie = 'theme=dark';
-				theme = 'dark';
-		}
-	}
+	const theme = $derived(getTheme());
 
 	onMount(() => {
-		theme = document.cookie.includes('dark') ? 'dark' : 'light';
+		updateCookie();
 	});
 </script>
 
@@ -30,7 +18,7 @@
 		onclick={() => updateCookie(theme)}
 		aria-label="theme">
 		<img
-			class="sidebar-theme__img"
+			class={`sidebar-theme__img sidebar-theme__img_${theme}`}
 			src={theme === 'dark' ? moon : sun}
 			alt="theme" />
 	</button>
@@ -46,5 +34,9 @@
 		&:hover {
 			opacity: 1;
 		}
+	}
+
+	.sidebar-theme__img_dark {
+		filter: invert(1);
 	}
 </style>

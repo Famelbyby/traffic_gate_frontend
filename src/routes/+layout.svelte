@@ -3,13 +3,16 @@
 	import './reset.css';
 	import favicon from '$lib/assets/favicon.svg';
 	import Sidebar from '~/components/sidebar/sidebar.svelte';
+	import { getTheme } from '~/helpers/theme.svelte';
 
 	let { children } = $props();
+
+	let layoutTheme = $derived(getTheme());
 </script>
 
 <svelte:head><link rel="icon" href={favicon} /></svelte:head>
 
-<div class="general-layout">
+<div class={`general-layout general-layout_${layoutTheme}`}>
 	<Sidebar />
 	<div class="page-content">{@render children()}</div>
 </div>
@@ -21,13 +24,18 @@
 		margin: 0;
 		box-sizing: border-box;
 		overflow: hidden;
-		background-color: #fcf4ea9e;
 		font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 	}
 
 	.general-layout {
 		display: flex;
 		flex-grow: 1;
+		background: #fcf4ea9e;
+	}
+
+	.general-layout_dark {
+		background: #000034;
+		color: white;
 	}
 
 	.page-content {
