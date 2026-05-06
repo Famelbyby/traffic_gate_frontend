@@ -6,7 +6,7 @@
 	import Portal from 'svelte-portal';
 	import Modal from '../modal/modal.svelte';
 	import Button from '../button/button.svelte';
-	import { setMetricsDataMock } from '~/helpers/metricsMocking.svelte';
+	import { getMetricsDataMock, setMetricsDataMock } from '~/helpers/metricsMocking.svelte';
 	import type { Props } from '~/types/rowMetrics';
 
 	let {updateInterval}: Props = $props();
@@ -31,6 +31,7 @@
 	function removeMetric() {
 		if (metricsData !== undefined) {
 			setMetricsDataMock(metricsData.filter((val) => val.id !== removePortalMetric?.id));
+			metricsData = getMetricsDataMock();
 		}
 
 		closeModal();
