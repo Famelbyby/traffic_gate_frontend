@@ -5,7 +5,6 @@ let METRICS_DATA_MOCK = $state<Metric[]>([
     {
         id: 0,
         title: 'Bucket',
-        footer: 'RPS',
         graphData: generateGraphData(),
         url: '/bucket',
         type: 'RPS',
@@ -13,7 +12,6 @@ let METRICS_DATA_MOCK = $state<Metric[]>([
     {
         id: 1,
         title: 'Orders',
-        footer: 'Service CPU',
         graphData: generateGraphData(),
         url: '/orders',
         type: 'CPU',
@@ -21,7 +19,6 @@ let METRICS_DATA_MOCK = $state<Metric[]>([
     {
         id: 2,
         title: 'Moderation',
-        footer: 'RAM load',
         graphData: generateGraphData(),
         url: '/moderation',
         type: 'RAM',

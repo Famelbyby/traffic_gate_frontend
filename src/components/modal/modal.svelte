@@ -3,7 +3,7 @@
     import close from '~/lib/assets/close.png';
 	import { onDestroy, onMount } from "svelte";
 
-    let {header, content, footerButtons, closeModal}: Props = $props();
+    let {header, content, footerButtons, closeModal, children}: Props = $props();
     
     let windowRef = $state<HTMLDivElement | null>(null);
 
@@ -36,6 +36,8 @@
         {/if}
         {#if content}
             {@render content()}
+        {:else if children }
+            {@render children()}
         {/if}
         {#if footerButtons}
             {@render footerButtons()}
