@@ -1,5 +1,4 @@
 import type { GraphPoint } from '~/types/metric';
-import { FormatTimestamp } from './formats';
 
 export function generateGraphData(
 	num = 100,
@@ -19,7 +18,7 @@ export function generateGraphData(
 	for (let i = 0; i < num; ++i) {
 		data.push({
 			value: min + Math.floor(Math.random() * (max - min)),
-			time: FormatTimestamp(Date.now()),
+			time: Date.now(),
 		});
 	}
 

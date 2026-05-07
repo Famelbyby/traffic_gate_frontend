@@ -11,3 +11,13 @@ export function FormatTimestamp(timestamp: number) {
 
 	return `${PadStart(hours)}:${PadStart(minutes)}:${PadStart(s)}`;
 }
+
+export function FormatWorkTime(ms: number) {
+	ms /= 1000;
+
+	const h = Math.floor(ms / 3600);
+	const m = Math.floor((ms % 3600) / 60);
+	const s = Math.floor(ms % 60);
+
+	return `${PadStart(h)}:${PadStart(m)}:${PadStart(s)}`;
+}

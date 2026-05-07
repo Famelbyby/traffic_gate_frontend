@@ -52,10 +52,9 @@
 </script>
 
 <div class={`metric-page metric-page_${theme}`}>
-	{#if metricData !== undefined}
-		<Header title={`Метрика ${metricData?.title}`} />
-		<MetricPage {metricData} />
-	{/if}
+	<div class="metric-page__skeleton">
+		Загружаем
+	</div>
 </div>
 
 <style lang="scss" scoped>
@@ -69,5 +68,23 @@
 
 	.metric-page_dark {
 		scrollbar-color: #6c9af5 #000034;
+	}
+
+	.metric-page__skeleton {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-grow: 1;
+		font-size: 30px;
+		animation: pending-text 2s ease-in 0.5s infinite both alternate;
+	}
+
+	@keyframes pending-text {
+		from {
+			color: gray;
+		}
+		to {
+			color: white;
+		}
 	}
 </style>

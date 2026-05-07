@@ -4,7 +4,7 @@ import { getTheme } from './theme.svelte';
 export function generateApexOptions<T = string>(
 	title: string,
 	values: T[],
-	coords: number[],
+	coords: string[],
 	height = 400,
 	width = 600,
 ) {
