@@ -14,5 +14,5 @@ export type CreateMetric = Pick<Metric, 'type' | 'url' | 'title'>;
 
 export type GraphPoint = {
 	value: number;
-	time: number;
+	time: number | string;
 };

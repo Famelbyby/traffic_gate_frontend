@@ -11,7 +11,7 @@ export function updateGraphData(
 	min = 0,
 	max = 300,
 ) {
-	graphData.push(...generateGraphData(num, min, max, graphData.length));
+	graphData.push(...generateGraphData(num, min, max));
 }
 
 export function generateMetricsMocks() {
