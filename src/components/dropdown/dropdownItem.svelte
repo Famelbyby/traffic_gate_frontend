@@ -16,6 +16,7 @@
         color: inherit;
         padding-right: 20px;
         height: 30px;
+        padding: 5px 10px;
         
         &:hover {
             filter: brightness(0.8);

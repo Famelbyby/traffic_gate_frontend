@@ -4,7 +4,7 @@
 	import remove from '~/lib/assets/close.png';
 	import { getTheme } from '~/helpers/theme.svelte';
 
-	let { id, title, footer, graphData, url, removeMetric, type }: Metric = $props();
+	let { id, title, graphData, url, removeMetric, type }: Metric = $props();
 	let cardRef = $state<HTMLDivElement | null>(null);
 	let closeButtonRef = $state<HTMLDivElement | null>(null);
 	let theme = $derived(getTheme());
@@ -15,7 +15,7 @@
 		}
 
 		if (closeButtonRef && e.target === closeButtonRef) {
-			removeMetric?.({id, title, footer, graphData, url, type});
+			removeMetric?.({id, title, graphData, url, type});
 		}
 	}
 </script>
@@ -39,7 +39,7 @@
 			<MetricCardGraph {graphData} {url} />
 		</div>
 		<div class="metric-card__footer">
-			{footer}
+			{type}
 		</div>
 	</div>
 </a>

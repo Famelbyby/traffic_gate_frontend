@@ -3,7 +3,7 @@
     import close from '~/lib/assets/close.png';
 	import { onDestroy, onMount } from "svelte";
 
-    let {header, content, footerButtons, closeModal}: Props = $props();
+    let {header, content, footerButtons, closeModal, children}: Props = $props();
     
     let windowRef = $state<HTMLDivElement | null>(null);
 
@@ -36,6 +36,8 @@
         {/if}
         {#if content}
             {@render content()}
+        {:else if children }
+            {@render children()}
         {/if}
         {#if footerButtons}
             {@render footerButtons()}
@@ -54,7 +56,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background: rgb(255, 255, 255, 0.75);
+        background: rgb(151 151 151 / 70%);
     }
 
     .modal-window {
@@ -69,6 +71,7 @@
         align-items: center;
         justify-content: space-around;
         padding: 50px;
+        row-gap: 20px;
     }
 
     .modal-close {

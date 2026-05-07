@@ -1,33 +1,4 @@
-import { generateGraphData } from '~/helpers/generateGraphData';
 import type { Props as CellStatProps } from '~/types/cellStat';
-import type { Metric } from '~/types/metric';
-
-export const METRICS_DATA_MOCK: Metric[] = [
-	{
-		id: 0,
-		title: 'Bucket',
-		footer: 'RPS',
-		graphData: generateGraphData(),
-		url: '/bucket',
-		type: 'RPS',
-	},
-	{
-		id: 1,
-		title: 'Orders',
-		footer: 'Service CPU',
-		graphData: generateGraphData(),
-		url: '/orders',
-		type: 'CPU',
-	},
-	{
-		id: 2,
-		title: 'Moderation',
-		footer: 'RAM load',
-		graphData: generateGraphData(),
-		url: '/moderation',
-		type: 'RAM',
-	},
-];
 
 export const OVERALL_STATS_MOCK: CellStatProps[] = [
 	{

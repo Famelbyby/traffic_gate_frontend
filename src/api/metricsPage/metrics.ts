@@ -1,14 +1,47 @@
 import AxiosClient from '../AxiosClient';
-import type { Metric } from '~/types/metric';
+import type { CreateMetric, Metric } from '~/types/metric';
 import { generateMetricsMocks } from '~/helpers/generateMetricsMocks';
-
-const generator = generateMetricsMocks();
+import { getMetricsDataMock, setMetricsDataMock } from '~/helpers/metricsMocking.svelte';
 
 export async function getMetrics() {
 	const result = await AxiosClient.get<Metric[]>('/metrics');
 
 	if (result.error !== undefined) {
-		return generator();
+		generateMetricsMocks();
+
+		return getMetricsDataMock();
+	}
+
+	return result.data!;
+}
+
+export async function removeMetric(id: number) {
+	const result = await AxiosClient.post<Metric[], number>('/metric', id);
+
+	if (result.error !== undefined) {
+		const currentMetricsDataMock = getMetricsDataMock();
+
+		setMetricsDataMock(currentMetricsDataMock.filter((metric) => metric.id !== id));
+
+		return getMetricsDataMock();
+	}
+
+	return result.data!;
+}
+
+export async function createMetric(data: CreateMetric) {
+	const result = await AxiosClient.post<Metric[], CreateMetric>('/metric/add', data);
+
+	if (result.error !== undefined) {
+		const currentMetricsDataMock = getMetricsDataMock();
+
+		setMetricsDataMock([...currentMetricsDataMock, {
+			...data,
+			id: currentMetricsDataMock.length,
+			graphData: [],
+		}]);
+
+		return getMetricsDataMock();
 	}
 
 	return result.data!;

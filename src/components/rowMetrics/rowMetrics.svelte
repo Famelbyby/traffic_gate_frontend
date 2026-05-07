@@ -1,15 +1,12 @@
 <script lang="ts">
 	import MetricCard from '../metricCard/metricCard.svelte';
 	import AddMetricCard from '../metricCard/addMetricCard.svelte';
-	import { getMetrics } from '~/api/metricsPage/metrics';
-	import type { Metric } from '~/types/metric';
+	import { createMetric, getMetrics, removeMetric } from '~/api/metricsPage/metrics';
+	import type { CreateMetric, Metric } from '~/types/metric';
 	import Portal from 'svelte-portal';
 	import Modal from '../modal/modal.svelte';
 	import Button from '../button/button.svelte';
-
-	export type Props = {
-		updateInterval: number;
-	}
+	import type { Props } from '~/types/rowMetrics';
 
 	let {updateInterval}: Props = $props();
 
@@ -30,10 +27,18 @@
 		removePortalMetric = metric;
 	}
 
-	function removeMetric() {
-		console.log('deleted');
+	async function deleteMetric() {
+		if (removePortalMetric === undefined) {
+			return;
+		}
+
+		metricsData = await removeMetric(removePortalMetric.id);
 
 		closeModal();
+	}
+
+	async function addMetric(data: CreateMetric) {
+		metricsData = await createMetric(data);
 	}
 
 	function closeModal() {
@@ -41,24 +46,24 @@
 	}
 </script>
 
-<div class="row-metrics">
-	{#snippet removeContent()}
-		<div class="remove-metric-content">
-			Вы уверены, что хотите удалить метрику {removePortalMetric?.title}?
-		</div>
-	{/snippet}
-	{#snippet removeFooterButtons()}
-		<div class="remove-metric-footer">
-			<Button text="Удалить" confirm pink onClick={removeMetric} />
-		</div>
-	{/snippet}
+{#snippet removeContent()}
+	<div class="remove-metric-content">
+		Вы уверены, что хотите удалить метрику {removePortalMetric?.title}?
+	</div>
+{/snippet}
+{#snippet removeFooterButtons()}
+	<div class="remove-metric-footer">
+		<Button text="Удалить" confirm pink onClick={deleteMetric} />
+	</div>
+{/snippet}
 
+<div class="row-metrics">
 	{#if metricsData !== undefined}
 		{#each metricsData as metric (metric.id)}
 			<MetricCard {...metric} removeMetric={activateModal} />
 		{/each}
 	{/if}
-	<AddMetricCard pending={metricsData === undefined} />
+	<AddMetricCard pending={metricsData === undefined} {addMetric}/>
 	{#if removePortalMetric !== undefined}
 		<Portal>
 			<Modal content={removeContent} footerButtons={removeFooterButtons} {closeModal}/>
