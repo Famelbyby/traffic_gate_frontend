@@ -71,6 +71,7 @@
         align-items: center;
         justify-content: space-around;
         padding: 50px;
+        row-gap: 20px;
     }
 
     .modal-close {
