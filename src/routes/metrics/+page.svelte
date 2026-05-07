@@ -31,10 +31,13 @@
 
 <div class={`metrics-page metrics-page_${theme}`}>
 	{#snippet dropdown()}
-		<Dropdown selectedItem={selectedInterval} items={METRICS_UPDATE_INTERVALS} changeItem={changeInterval}/>
+		<Dropdown
+			selectedItem={selectedInterval}
+			items={METRICS_UPDATE_INTERVALS}
+			changeItem={changeInterval} />
 	{/snippet}
 
-	<Header title="Метрики" snippet={dropdown}/>
+	<Header title="Метрики" snippet={dropdown} />
 	<RowMetrics {updateInterval} />
 </div>
 

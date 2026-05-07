@@ -59,6 +59,4 @@
 		background-color: rgb(220, 0, 0);
 		color: white;
 	}
-
-	
 </style>

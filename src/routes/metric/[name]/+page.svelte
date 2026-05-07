@@ -8,7 +8,9 @@
 	let { params } = $props();
 
 	let metricData = $derived(
-		getMetricsDataMock().find((metric) => metric.url.slice(1) === params.name),
+		getMetricsDataMock().find(
+			(metric) => metric.url.slice(1) === params.name,
+		),
 	);
 	let theme = $derived(getTheme());
 

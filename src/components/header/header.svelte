@@ -18,6 +18,6 @@
 		display: flex;
 		margin-bottom: 30px;
 		flex-direction: column;
-    	align-items: start;
+		align-items: start;
 	}
 </style>

@@ -15,7 +15,7 @@
 		}
 
 		if (closeButtonRef && e.target === closeButtonRef) {
-			removeMetric?.({id, title, graphData, url, type});
+			removeMetric?.({ id, title, graphData, url, type });
 		}
 	}
 </script>

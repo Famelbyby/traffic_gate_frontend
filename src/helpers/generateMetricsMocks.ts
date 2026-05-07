@@ -1,6 +1,9 @@
 import type { GraphPoint } from '~/types/metric';
 import { generateGraphData } from './generateGraphData';
-import { getMetricsDataMock, setMetricsDataMock } from './metricsMocking.svelte';
+import {
+	getMetricsDataMock,
+	setMetricsDataMock,
+} from './metricsMocking.svelte';
 
 export function updateGraphData(
 	graphData: GraphPoint[],

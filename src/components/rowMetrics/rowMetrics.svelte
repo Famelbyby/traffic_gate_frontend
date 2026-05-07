@@ -1,14 +1,18 @@
 <script lang="ts">
 	import MetricCard from '../metricCard/metricCard.svelte';
 	import AddMetricCard from '../metricCard/addMetricCard.svelte';
-	import { createMetric, getMetrics, removeMetric } from '~/api/metricsPage/metrics';
+	import {
+		createMetric,
+		getMetrics,
+		removeMetric,
+	} from '~/api/metricsPage/metrics';
 	import type { CreateMetric, Metric } from '~/types/metric';
 	import Portal from 'svelte-portal';
 	import Modal from '../modal/modal.svelte';
 	import Button from '../button/button.svelte';
 	import type { Props } from '~/types/rowMetrics';
 
-	let {updateInterval}: Props = $props();
+	let { updateInterval }: Props = $props();
 
 	let metricsData = $state<Metric[] | undefined>(undefined);
 	let removePortalMetric = $state<Metric | undefined>(undefined);
@@ -63,10 +67,13 @@
 			<MetricCard {...metric} removeMetric={activateModal} />
 		{/each}
 	{/if}
-	<AddMetricCard pending={metricsData === undefined} {addMetric}/>
+	<AddMetricCard pending={metricsData === undefined} {addMetric} />
 	{#if removePortalMetric !== undefined}
 		<Portal>
-			<Modal content={removeContent} footerButtons={removeFooterButtons} {closeModal}/>
+			<Modal
+				content={removeContent}
+				footerButtons={removeFooterButtons}
+				{closeModal} />
 		</Portal>
 	{/if}
 </div>

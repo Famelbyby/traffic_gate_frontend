@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { getTheme } from '~/helpers/theme.svelte';
 	import Button from '../button/button.svelte';
-	import type {AddMetricCard as Props} from '~/types/metricCard';
+	import type { AddMetricCard as Props } from '~/types/metricCard';
 	import AddMetricModal from '../modal/addMetricModal.svelte';
 	import type { CreateMetric } from '~/types/metric';
 
-	let {pending, addMetric}: Props = $props();
+	let { pending, addMetric }: Props = $props();
 
 	let IsAddModal = $state(false);
 	let theme = $derived(getTheme());
@@ -27,14 +27,12 @@
 
 <div class={`add-metric-card add-metric-card_${theme}`}>
 	{#if pending}
-		<span class="add-metric-card__pending-text">
-			Загружаем
-		</span>
+		<span class="add-metric-card__pending-text"> Загружаем </span>
 	{:else}
-		<Button text="Добавить метрику" confirm pink onClick={openModal}/>
+		<Button text="Добавить метрику" confirm pink onClick={openModal} />
 	{/if}
 	{#if IsAddModal}
-		<AddMetricModal {closeModal} addMetric={createMetric}/>
+		<AddMetricModal {closeModal} addMetric={createMetric} />
 	{/if}
 </div>
 

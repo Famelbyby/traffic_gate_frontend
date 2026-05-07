@@ -1,4 +1,4 @@
-import type { Snippet } from "./general";
+import type { Snippet } from './general';
 
 export type Props = {
 	title?: string;
