@@ -1,4 +1,5 @@
 import type { Theme } from '~/types/sidebar';
+import { findCookie } from './findCookie';
 
 let theme = $state<Theme>('light');
 
@@ -6,10 +7,12 @@ export function getTheme() {
 	return theme;
 }
 
-export function updateCookie(currentTheme?: Theme) {
+export function updateThemeCookie(currentTheme?: Theme) {
+	const cookieTheme = findCookie('theme');
+
 	switch (currentTheme) {
 		case undefined:
-			theme = document.cookie.includes('dark') ? 'dark' : 'light';
+			theme = cookieTheme?.includes('dark') ? 'dark' : 'light';
 			break;
 		case 'dark':
 			document.cookie = 'theme=light';

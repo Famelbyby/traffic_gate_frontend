@@ -2,12 +2,12 @@
 	import { onMount } from 'svelte';
 	import moon from '$lib/assets/moon.png';
 	import sun from '$lib/assets/sun.png';
-	import { getTheme, updateCookie } from '~/helpers/theme.svelte';
+	import { getTheme, updateThemeCookie } from '~/helpers/theme.svelte';
 
 	const theme = $derived(getTheme());
 
 	onMount(() => {
-		updateCookie();
+		updateThemeCookie();
 	});
 </script>
 
@@ -15,7 +15,7 @@
 	<button
 		type="button"
 		class="sidebar-theme__value"
-		onclick={() => updateCookie(theme)}
+		onclick={() => updateThemeCookie(theme)}
 		aria-label="theme">
 		<img
 			class={`sidebar-theme__img sidebar-theme__img_${theme}`}

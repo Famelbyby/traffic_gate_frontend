@@ -52,9 +52,14 @@
 </script>
 
 <div class={`metric-page metric-page_${theme}`}>
-	<div class="metric-page__skeleton">
-		Загружаем
-	</div>
+	{#if metricData !== undefined}
+		<Header title={`Метрика ${metricData?.title}`} />
+		<MetricPage {metricData} />
+	{:else}
+		<div class="metric-page__skeleton">
+			Загружаем
+		</div>
+	{/if}
 </div>
 
 <style lang="scss" scoped>
