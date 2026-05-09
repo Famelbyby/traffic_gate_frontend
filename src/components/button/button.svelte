@@ -8,6 +8,7 @@
 		confirm = false,
 		cancel = false,
 		pink = false,
+		disabled = false,
 	}: Props = $props();
 
 	let theme = $derived(getTheme());
@@ -20,8 +21,9 @@
 		'base-button_cancel': cancel,
 		'base-button_pink': pink,
 		'base-button_pink_dark': pink && theme === 'dark',
+		'base-button_disabled': disabled,
 	}}
-	onclick={onClick}>
+	onclick={onClick} disabled={disabled}>
 	{text}
 </button>
 
@@ -29,7 +31,6 @@
 	.base-button {
 		padding: 7px 10px;
 		border-radius: 7px;
-		box-shadow: 1px 1px 2px black;
 	}
 
 	.base-button_confirm {
@@ -58,5 +59,18 @@
 	.base-button_cancel {
 		background-color: rgb(220, 0, 0);
 		color: white;
+
+		&:hover {
+			filter: brightness(1.2);
+		}
+	}
+
+	.base-button_disabled {
+		filter: brightness(0.7);
+		cursor: not-allowed;
+
+		&:hover {
+			filter: brightness(0.7);
+		}
 	}
 </style>

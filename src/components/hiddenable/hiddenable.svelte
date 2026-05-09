@@ -16,6 +16,8 @@
 
 <style lang="scss" scoped>
 	.visibility-wrapper {
+		display: flex;
+		flex-grow: 1;
 		visibility: visible;
 	}
 

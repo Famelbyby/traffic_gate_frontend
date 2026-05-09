@@ -3,5 +3,6 @@ export type Props = {
 	confirm?: boolean;
 	cancel?: boolean;
 	pink?: boolean;
+	disabled?: boolean;
 	onClick?: () => void;
 };
