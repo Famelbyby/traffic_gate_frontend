@@ -15,7 +15,7 @@
 
 <div class="configuration-page">
 	<Header title="Конфигурация" />
-	<ConfigurationWays onClick={catchWayClick} />
+	<ConfigurationWays selectedWay={currentWay} onClick={catchWayClick} />
 	<Hiddenable visibilityCondition={() => currentWay === 'text'}>
 		<TextConfiguration />
 	</Hiddenable>
