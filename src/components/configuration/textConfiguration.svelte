@@ -6,13 +6,13 @@
 	import { getTheme } from '~/helpers/theme.svelte';
 	import type { Configuration } from '~/types/configuration';
 	import { getConfiguration, postConfiguration } from '~/api/configurationPage/configuration';
-
-	let error = $state('asdkaksda');
+	import { parseConfiguration } from '~/helpers/configParser';
 
 	let initText = $state<Configuration | undefined>(undefined);
 	let currentText = $state<Configuration | undefined>(undefined);
 	let cancelChangesModal = $state(false);
 	let theme = $derived(getTheme());
+	let configValue = $derived(parseConfiguration(currentText || ''));
 
 	let ref = $state<HTMLTextAreaElement | null>(null);
 
@@ -102,7 +102,7 @@
 			</div>
 		</div>
 		<div class="text-configuration-right">
-			{error}
+			{JSON.stringify(configValue)}
 		</div>
 		{#if cancelChangesModal}
 			<Modal {content} {footerButtons} {closeModal}/>
