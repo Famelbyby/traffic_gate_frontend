@@ -7,6 +7,8 @@
 	import type { Configuration } from '~/types/configuration';
 	import { getConfiguration, postConfiguration } from '~/api/configurationPage/configuration';
 
+	let error = $state('asdkaksda');
+
 	let initText = $state<Configuration | undefined>(undefined);
 	let currentText = $state<Configuration | undefined>(undefined);
 	let cancelChangesModal = $state(false);
@@ -91,11 +93,16 @@
 
 {#if initText !== undefined}
 	<div class="text-configuration">
-		<textarea bind:this={ref} name="configuration" class={`text-configuration__textarea text-configuration__textarea_${theme}`} oninput={onChange}
-			>{currentText}</textarea>
-		<div class="text-configuration-buttons">
-			<Button text="Сохранить" confirm pink onClick={acceptChanges} />
-			<Button text="Отменить изменения" disabled={currentText === initText} cancel onClick={openModal}/>
+		<div class="text-configuration-left">
+			<textarea bind:this={ref} name="configuration" class={`text-configuration__textarea text-configuration__textarea_${theme}`} oninput={onChange}
+				>{currentText}</textarea>
+			<div class="text-configuration-buttons">
+				<Button text="Сохранить" confirm pink onClick={acceptChanges} />
+				<Button text="Отменить изменения" disabled={currentText === initText} cancel onClick={openModal}/>
+			</div>
+		</div>
+		<div class="text-configuration-right">
+			{error}
 		</div>
 		{#if cancelChangesModal}
 			<Modal {content} {footerButtons} {closeModal}/>
@@ -111,12 +118,17 @@
 	.text-configuration {
 		display: flex;
 		flex-grow: 1;
+		width: 100%;
+		margin-top: 30px;
+		gap: 20px;
+	}
+
+	.text-configuration-left {
+		display: flex;
+		flex-direction: column;
 		min-width: 225px;
 		width: 100%;
 		max-width: 800px;
-		margin-top: 30px;
-		flex-direction: column;
-		row-gap: 20px;
 	}
 
 	.text-configuration_skeleton {
