@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { getTheme } from "~/helpers/theme.svelte";
-	import type {MetricPageHeader as Props} from '~/types/metricPage';
+	import { getTheme } from '~/helpers/theme.svelte';
+	import type { MetricPageHeader as Props } from '~/types/metricPage';
 
 	let { url }: Props = $props();
 
@@ -8,7 +8,11 @@
 </script>
 
 <div class="metric-page-header">
-	<a class={`metric-page-header__go-back metric-page-header__go-back_${theme}`} href="/metrics"> Вернуться назад </a>
+	<a
+		class={`metric-page-header__go-back metric-page-header__go-back_${theme}`}
+		href="/metrics">
+		Вернуться назад
+	</a>
 	Url: {url}
 </div>
 

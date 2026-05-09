@@ -1,4 +1,4 @@
 export type Props = {
-    closeModal: () => void;
-    addMetric: (data: CreateMetric) => void;
-}
+	closeModal: () => void;
+	addMetric: (data: CreateMetric) => void;
+};

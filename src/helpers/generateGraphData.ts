@@ -4,7 +4,6 @@ export function generateGraphData(
 	num = 100,
 	min = 0,
 	max = 300,
-	startTime = 0,
 ) {
 	if (num < 0) {
 		return [];
@@ -19,7 +18,7 @@ export function generateGraphData(
 	for (let i = 0; i < num; ++i) {
 		data.push({
 			value: min + Math.floor(Math.random() * (max - min)),
-			time: i + startTime,
+			time: Date.now(),
 		});
 	}
 

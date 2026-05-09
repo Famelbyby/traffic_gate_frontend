@@ -4,7 +4,7 @@ import { getTheme } from './theme.svelte';
 export function generateApexOptions<T = string>(
 	title: string,
 	values: T[],
-	coords: number[],
+	coords: string[],
 	height = 400,
 	width = 600,
 ) {
@@ -81,9 +81,9 @@ export function generateApexOptions<T = string>(
 				left: 2,
 			},
 			labels: {
-				colors: theme === 'dark' ? 'white': 'gray',
+				colors: theme === 'dark' ? 'white' : 'gray',
 				padding: 2,
-			}
+			},
 		},
 	};
 }

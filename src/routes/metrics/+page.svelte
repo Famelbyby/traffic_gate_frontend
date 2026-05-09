@@ -1,14 +1,16 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import Dropdown from '~/components/dropdown/dropdown.svelte';
 	import Header from '~/components/header/header.svelte';
 	import RowMetrics from '~/components/rowMetrics/rowMetrics.svelte';
 	import { METRICS_UPDATE_INTERVALS } from '~/constants/metrics';
+	import { getInterval, updateIntervalCookie } from '~/helpers/interval.svelte';
 	import { getTheme } from '~/helpers/theme.svelte';
 	import type { MetricsUpdateInterval } from '~/types/metrics';
 
 	let theme = $derived(getTheme());
 
-	let selectedInterval = $state<MetricsUpdateInterval>('3s');
+	let selectedInterval = $derived(getInterval() || '3s');
 	let updateInterval = $derived.by(() => {
 		switch (selectedInterval) {
 			case '3s':
@@ -25,16 +27,23 @@
 	});
 
 	function changeInterval(nextInterval: string) {
-		selectedInterval = nextInterval as MetricsUpdateInterval;
+		updateIntervalCookie(<MetricsUpdateInterval>nextInterval);
 	}
+
+	onMount(() => {
+		updateIntervalCookie();
+	})
 </script>
 
 <div class={`metrics-page metrics-page_${theme}`}>
 	{#snippet dropdown()}
-		<Dropdown selectedItem={selectedInterval} items={METRICS_UPDATE_INTERVALS} changeItem={changeInterval}/>
+		<Dropdown
+			selectedItem={selectedInterval}
+			items={METRICS_UPDATE_INTERVALS}
+			changeItem={changeInterval} />
 	{/snippet}
 
-	<Header title="Метрики" snippet={dropdown}/>
+	<Header title="Метрики" snippet={dropdown} />
 	<RowMetrics {updateInterval} />
 </div>
 

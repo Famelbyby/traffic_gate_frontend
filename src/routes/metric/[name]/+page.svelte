@@ -1,28 +1,64 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { onDestroy, onMount } from 'svelte';
+	import { getMetric } from '~/api/metricPage/metric.js';
 	import Header from '~/components/header/header.svelte';
 	import MetricPage from '~/components/metricPage/metricPage.svelte';
-	import { getMetricsDataMock } from '~/helpers/metricsMocking.svelte.js';
+	import { updateGraphData } from '~/helpers/generateMetricsMocks.js';
 	import { getTheme } from '~/helpers/theme.svelte';
+	import type { Metric } from '~/types/metric.js';
 
 	let { params } = $props();
 
-	let metricData = $derived(
-		getMetricsDataMock().find((metric) => metric.url.slice(1) === params.name),
-	);
+	let metricData = $state<Metric | undefined>(undefined);
 	let theme = $derived(getTheme());
+	let id = $state<number | undefined>(undefined);
 
-	$effect(() => {
-		if (metricData === undefined) {
+	onMount(async () => {
+		const result = await getMetric(params.name);
+
+		if (result === undefined) {
 			goto('/metrics');
+
+			return;
 		}
-	});
+
+		metricData = result;
+
+		const source = new EventSource('/metric/real-time', {
+			withCredentials: true,
+		});
+
+		source.addEventListener('message', (event) => {
+			metricData = event.data;
+		});
+
+		source.addEventListener('error', () => {
+			id = <number><unknown>setInterval(() => {
+				if (metricData === undefined) {
+					return;
+				}
+
+				updateGraphData(metricData.graphData);
+
+				metricData = {...metricData};
+			}, 1000);
+		});
+	})
+
+	onDestroy(() => {
+		clearInterval(id);
+	})
 </script>
 
 <div class={`metric-page metric-page_${theme}`}>
 	{#if metricData !== undefined}
 		<Header title={`Метрика ${metricData?.title}`} />
 		<MetricPage {metricData} />
+	{:else}
+		<div class="metric-page__skeleton">
+			Загружаем
+		</div>
 	{/if}
 </div>
 
@@ -37,5 +73,23 @@
 
 	.metric-page_dark {
 		scrollbar-color: #6c9af5 #000034;
+	}
+
+	.metric-page__skeleton {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-grow: 1;
+		font-size: 30px;
+		animation: pending-text 2s ease-in 0.5s infinite both alternate;
+	}
+
+	@keyframes pending-text {
+		from {
+			color: gray;
+		}
+		to {
+			color: white;
+		}
 	}
 </style>

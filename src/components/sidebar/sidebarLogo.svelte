@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { getTheme } from "~/helpers/theme.svelte";
+	import { getTheme } from '~/helpers/theme.svelte';
 
 	let theme = $derived(getTheme());
 </script>

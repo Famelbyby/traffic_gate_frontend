@@ -5,6 +5,8 @@ import {
 import type { Metric } from '~/types/metric';
 import type { Props as CellStat } from '~/types/cellStat';
 import { getPercentile } from './getPercentile';
+import { getWorkTime } from './getWorkTime';
+import { FormatWorkTime } from './formats';
 
 export function createMetricStats(metricData: Metric) {
 	const values = metricData.graphData
@@ -38,7 +40,7 @@ export function createMetricStats(metricData: Metric) {
 				cell.value = (sum / values.length).toFixed(2);
 				break;
 			case 'time':
-				cell.value = metricData.workTime || DEFAULT_WORK_TIME_TITLE;
+				cell.value = FormatWorkTime(getWorkTime(metricData)) || DEFAULT_WORK_TIME_TITLE;
 				break;
 		}
 

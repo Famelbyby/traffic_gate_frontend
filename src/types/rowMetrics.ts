@@ -1,3 +1,3 @@
 export type Props = {
-    updateInterval: number;
-}
+	updateInterval: number;
+};

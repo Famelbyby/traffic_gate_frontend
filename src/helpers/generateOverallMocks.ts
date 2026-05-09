@@ -1,11 +1,10 @@
 import { OVERALL_STATS_MOCK } from '~/constants/mocks';
+import { FormatTimestamp } from './formats';
 
 export function generateOverallMocks() {
 	let init = OVERALL_STATS_MOCK;
 
 	return () => {
-		const now = new Date();
-
 		init = [
 			{
 				title: 'CPU, %',
@@ -13,7 +12,7 @@ export function generateOverallMocks() {
 			},
 			{
 				title: 'Время работы',
-				value: `${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`,
+				value: FormatTimestamp(Date.now()),
 			},
 			{
 				title: 'RAM, Gb',
