@@ -4,9 +4,11 @@
 	import { browser } from '$app/environment';
 	import Modal from '../modal/modal.svelte';
 	import { getTheme } from '~/helpers/theme.svelte';
+	import type { Configuration } from '~/types/configuration';
+	import { getConfiguration, postConfiguration } from '~/api/configurationPage/configuration';
 
-	let initText = $state('');
-	let currentText = $state('');
+	let initText = $state<Configuration | undefined>(undefined);
+	let currentText = $state<Configuration | undefined>(undefined);
 	let cancelChangesModal = $state(false);
 	let theme = $derived(getTheme());
 
@@ -21,7 +23,7 @@
 	}
 
 	function tabClickCatcher(event: Event) {
-		if (ref === null) {
+		if (ref === null || currentText === undefined) {
 			return;
 		}
 
@@ -45,6 +47,14 @@
 		cancelChangesModal = true;
 	}
 
+	async function acceptChanges() {
+		if (currentText === undefined) {
+			return;
+		}
+
+		initText = await postConfiguration(currentText);
+	}
+
 	function cancelChanges() {
 		currentText = initText;
 
@@ -55,8 +65,12 @@
 		cancelChangesModal = false;
 	}
 
-	onMount(() => {
+	onMount(async () => {
 		document.addEventListener('keydown', tabClickCatcher);
+
+		const config = await getConfiguration();
+
+		initText = currentText = config;
 	});
 
 	onDestroy(() => {
@@ -75,17 +89,23 @@
 	<Button text='Отменить изменения' cancel onClick={cancelChanges}/>
 {/snippet}
 
-<div class="text-configuration">
-	<textarea bind:this={ref} name="configuration" class={`text-configuration__textarea text-configuration__textarea_${theme}`} oninput={onChange}
-		>{currentText}</textarea>
-	<div class="text-configuration-buttons">
-		<Button text="Сохранить" confirm pink />
-		<Button text="Отменить изменения" disabled={currentText === initText} cancel onClick={openModal}/>
+{#if initText !== undefined}
+	<div class="text-configuration">
+		<textarea bind:this={ref} name="configuration" class={`text-configuration__textarea text-configuration__textarea_${theme}`} oninput={onChange}
+			>{currentText}</textarea>
+		<div class="text-configuration-buttons">
+			<Button text="Сохранить" confirm pink onClick={acceptChanges} />
+			<Button text="Отменить изменения" disabled={currentText === initText} cancel onClick={openModal}/>
+		</div>
+		{#if cancelChangesModal}
+			<Modal {content} {footerButtons} {closeModal}/>
+		{/if}
 	</div>
-	{#if cancelChangesModal}
-		<Modal {content} {footerButtons} {closeModal}/>
-	{/if}
-</div>
+{:else}
+	<div class="text-configuration_skeleton">
+		Загружаем
+	</div>
+{/if}
 
 <style lang="scss" scoped>
 	.text-configuration {
@@ -97,6 +117,15 @@
 		margin-top: 30px;
 		flex-direction: column;
 		row-gap: 20px;
+	}
+
+	.text-configuration_skeleton {
+		display: flex;
+		flex-grow: 1;
+		align-items: center;
+		justify-content: center;
+		font-size: 30px;
+		animation: pending-text 2s ease-in 0.5s infinite both alternate;
 	}
 
 	.text-configuration__textarea {
@@ -123,5 +152,14 @@
 		justify-content: end;
 		column-gap: 30px;
 		align-items: center;
+	}
+
+	@keyframes pending-text {
+		from {
+			color: gray;
+		}
+		to {
+			color: white;
+		}
 	}
 </style>

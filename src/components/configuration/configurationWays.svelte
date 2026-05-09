@@ -3,12 +3,8 @@
 		CONFIGURATION_TRANSLATION,
 		CONFIGURATION_WAYS,
 	} from '~/constants/configuration';
-	import type { ConfigurationWay } from '~/types/configuration';
 
-	export type Props = {
-		selectedWay: ConfigurationWay;
-		onClick: (way: ConfigurationWay) => void;
-	};
+	import type {ConfigurationWays as Props} from '~/types/configuration';
 
 	let { onClick, selectedWay }: Props = $props();
 </script>
