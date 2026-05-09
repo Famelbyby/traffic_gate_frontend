@@ -12,8 +12,6 @@ export function updateIntervalCookie(nextInterval?: MetricsUpdateInterval) {
 
 	switch (nextInterval) {
 		case undefined:
-            console.log(doc);
-
 			interval = <MetricsUpdateInterval>doc?.split('=')[1] || '3s';
 			break;
 		case '3s':
