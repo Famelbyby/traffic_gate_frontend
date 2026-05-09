@@ -79,7 +79,7 @@
 	<textarea bind:this={ref} name="configuration" class={`text-configuration__textarea text-configuration__textarea_${theme}`} oninput={onChange}
 		>{currentText}</textarea>
 	<div class="text-configuration-buttons">
-		<Button text="Сохранить" confirm />
+		<Button text="Сохранить" confirm pink />
 		<Button text="Отменить изменения" disabled={currentText === initText} cancel onClick={openModal}/>
 	</div>
 	{#if cancelChangesModal}
