@@ -34,21 +34,21 @@
 		});
 
 		source.addEventListener('error', () => {
-			id = <number><unknown>setInterval(() => {
+			id = <number>(<unknown>setInterval(() => {
 				if (metricData === undefined) {
 					return;
 				}
 
 				updateGraphData(metricData.graphData);
 
-				metricData = {...metricData};
-			}, 1000);
+				metricData = { ...metricData };
+			}, 1000));
 		});
-	})
+	});
 
 	onDestroy(() => {
 		clearInterval(id);
-	})
+	});
 </script>
 
 <div class={`metric-page metric-page_${theme}`}>
@@ -56,9 +56,7 @@
 		<Header title={`Метрика ${metricData?.title}`} />
 		<MetricPage {metricData} />
 	{:else}
-		<div class="metric-page__skeleton">
-			Загружаем
-		</div>
+		<div class="metric-page__skeleton">Загружаем</div>
 	{/if}
 </div>
 

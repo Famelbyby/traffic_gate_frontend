@@ -1,25 +1,31 @@
-import { getConfigurationMock, setConfigurationMock } from '~/helpers/configurationMocking.svelte';
+import {
+	getConfigurationMock,
+	setConfigurationMock,
+} from '~/helpers/configurationMocking.svelte';
 import AxiosClient from '../AxiosClient';
 import type { Configuration } from '~/types/configuration';
 
 export async function getConfiguration() {
-    const result = await AxiosClient.get<Configuration>('/configuration');
+	const result = await AxiosClient.get<Configuration>('/configuration');
 
-    if (result.error !== undefined) {
-        return getConfigurationMock();
-    }
+	if (result.error !== undefined) {
+		return getConfigurationMock();
+	}
 
-    return result.data!;
+	return result.data!;
 }
 
 export async function postConfiguration(data: Configuration) {
-    const result = await AxiosClient.post<Configuration, Configuration>('/configuration', data);
+	const result = await AxiosClient.post<Configuration, Configuration>(
+		'/configuration',
+		data,
+	);
 
-    if (result.error !== undefined) {
-        setConfigurationMock(data);
+	if (result.error !== undefined) {
+		setConfigurationMock(data);
 
-        return getConfigurationMock();
-    }
+		return getConfigurationMock();
+	}
 
-    return result.data!;
+	return result.data!;
 }

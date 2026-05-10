@@ -23,7 +23,8 @@
 		'base-button_pink_dark': pink && theme === 'dark',
 		'base-button_disabled': disabled,
 	}}
-	onclick={onClick} disabled={disabled}>
+	onclick={onClick}
+	{disabled}>
 	{text}
 </button>
 

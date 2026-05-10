@@ -7,7 +7,9 @@
 	let { graphData, url, width, height }: MetricPageGraph = $props();
 
 	let graphValues = $derived(graphData.map((graphPoint) => graphPoint.value));
-	let graphTimes = $derived(graphData.map((graphPoint) => FormatTimestamp(graphPoint.time)));
+	let graphTimes = $derived(
+		graphData.map((graphPoint) => FormatTimestamp(graphPoint.time)),
+	);
 
 	let options = $derived(
 		generateApexOptions<number>(

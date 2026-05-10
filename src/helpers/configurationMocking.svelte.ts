@@ -1,11 +1,11 @@
-import type { Configuration } from "~/types/configuration";
+import type { Configuration } from '~/types/configuration';
 
-let CONFIGURATION_MOCK = $state('JOPA\n{\n\tOKAK\n}');
+let CONFIGURATION_MOCK = $state('admin {\n\tenabled: true,\n}');
 
 export function getConfigurationMock() {
-    return CONFIGURATION_MOCK;
+	return CONFIGURATION_MOCK;
 }
 
 export function setConfigurationMock(data: Configuration) {
-    CONFIGURATION_MOCK = data;
+	CONFIGURATION_MOCK = data;
 }
