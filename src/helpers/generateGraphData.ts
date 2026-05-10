@@ -1,10 +1,6 @@
 import type { GraphPoint } from '~/types/metric';
 
-export function generateGraphData(
-	num = 100,
-	min = 0,
-	max = 300,
-) {
+export function generateGraphData(num = 100, min = 0, max = 300) {
 	if (num < 0) {
 		return [];
 	}

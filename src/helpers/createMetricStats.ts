@@ -40,7 +40,9 @@ export function createMetricStats(metricData: Metric) {
 				cell.value = (sum / values.length).toFixed(2);
 				break;
 			case 'time':
-				cell.value = FormatWorkTime(getWorkTime(metricData)) || DEFAULT_WORK_TIME_TITLE;
+				cell.value =
+					FormatWorkTime(getWorkTime(metricData)) ||
+					DEFAULT_WORK_TIME_TITLE;
 				break;
 		}
 

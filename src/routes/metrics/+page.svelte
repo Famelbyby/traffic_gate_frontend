@@ -4,7 +4,10 @@
 	import Header from '~/components/header/header.svelte';
 	import RowMetrics from '~/components/rowMetrics/rowMetrics.svelte';
 	import { METRICS_UPDATE_INTERVALS } from '~/constants/metrics';
-	import { getInterval, updateIntervalCookie } from '~/helpers/interval.svelte';
+	import {
+		getInterval,
+		updateIntervalCookie,
+	} from '~/helpers/interval.svelte';
 	import { getTheme } from '~/helpers/theme.svelte';
 	import type { MetricsUpdateInterval } from '~/types/metrics';
 
@@ -32,7 +35,7 @@
 
 	onMount(() => {
 		updateIntervalCookie();
-	})
+	});
 </script>
 
 <div class={`metrics-page metrics-page_${theme}`}>

@@ -4,7 +4,7 @@
 		CONFIGURATION_WAYS,
 	} from '~/constants/configuration';
 
-	import type {ConfigurationWays as Props} from '~/types/configuration';
+	import type { ConfigurationWays as Props } from '~/types/configuration';
 
 	let { onClick, selectedWay }: Props = $props();
 </script>
@@ -36,6 +36,6 @@
 
 	.configuration-ways__item_activated {
 		background: gray;
-   		color: white;
+		color: white;
 	}
 </style>

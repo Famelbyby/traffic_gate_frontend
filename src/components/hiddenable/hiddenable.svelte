@@ -19,6 +19,7 @@
 		display: flex;
 		flex-grow: 1;
 		visibility: visible;
+		min-height: 0;
 	}
 
 	.visibility-wrapper_hidden {

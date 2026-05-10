@@ -1,14 +1,14 @@
-import type { MetricsUpdateInterval } from "~/types/metrics";
-import { findCookie } from "./findCookie";
+import type { MetricsUpdateInterval } from '~/types/metrics';
+import { findCookie } from './findCookie';
 
 let interval = $state<MetricsUpdateInterval | undefined>(undefined);
 
 export function getInterval() {
-    return interval;
+	return interval;
 }
 
 export function updateIntervalCookie(nextInterval?: MetricsUpdateInterval) {
-    const doc = findCookie('interval');
+	const doc = findCookie('interval');
 
 	switch (nextInterval) {
 		case undefined:
@@ -22,15 +22,15 @@ export function updateIntervalCookie(nextInterval?: MetricsUpdateInterval) {
 			document.cookie = 'interval=5s';
 			interval = '5s';
 			break;
-        case '15s':
+		case '15s':
 			document.cookie = 'interval=15s';
 			interval = '15s';
 			break;
-        case '30s':
+		case '30s':
 			document.cookie = 'interval=30s';
 			interval = '30s';
 			break;
-        case '1m':
+		case '1m':
 			document.cookie = 'interval=1m';
 			interval = '1m';
 			break;
