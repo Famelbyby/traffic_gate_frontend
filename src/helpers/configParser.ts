@@ -174,7 +174,7 @@ export function checkFieldType(
 	return true;
 }
 
-type State = 0 | 1 | 2 | 3;
+type State = 0 | 1 | 2;
 
 function makeSyntaxError(
 	stringIndex: number,
