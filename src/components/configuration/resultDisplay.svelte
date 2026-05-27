@@ -1,28 +1,29 @@
 <script lang="ts">
-	import { getTheme } from "~/helpers/theme.svelte";
+	import { getTheme } from '~/helpers/theme.svelte';
 
-    export type Props = {
-        configValue: object | Error | string;
-        error?: boolean;
-    }
+	export type Props = {
+		configValue: object | Error | string;
+		error?: boolean;
+	};
 
-    let {configValue, error}: Props = $props();
-    let theme = $derived(getTheme());
+	let { configValue, error }: Props = $props();
+	let theme = $derived(getTheme());
 </script>
 
 <div
-    class={`result-display ${error ? 'result-display_error' : ''} result-display_${theme}`}>
-    {#if configValue instanceof Error}
-        <span class="result-display__error"
-            >Ошибка: {configValue.message}</span>
-    {:else if configValue instanceof Object}
-        <span class="result-display__result">Результат:</span>
-        <pre>{JSON.stringify(configValue, null, ' ')}</pre>
-    {/if}
+	class={`result-display ${error ? 'result-display_error' : ''} result-display_${theme}`}>
+	{#if configValue instanceof Error}
+		<span class="result-display__error">Ошибка: {configValue.message}</span>
+	{:else}
+		<span class="result-display__result">Результат:</span>
+		<pre class="result-display__text">{configValue instanceof Object
+				? JSON.stringify(configValue, null, ' ')
+				: configValue}</pre>
+	{/if}
 </div>
 
 <style lang="scss">
-    .result-display {
+	.result-display {
 		display: flex;
 		flex-direction: column;
 		flex-grow: 1;
@@ -32,6 +33,10 @@
 		border: 1px solid #8fff8f;
 		background: #8fff8f;
 	}
+
+    .result-display__text {
+        overflow: auto;
+    }
 
 	.result-display_dark {
 		border: 1px solid #6c9af5;

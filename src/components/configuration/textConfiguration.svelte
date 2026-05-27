@@ -11,14 +11,14 @@
 		postConfiguration,
 	} from '~/api/configurationPage/configuration';
 	import { parseConfiguration } from '~/helpers/configParser';
-	import { INITIAL_CONFIGURATION_SETTINGS } from '~/constants/configuration';
 	import ResultDisplay from './resultDisplay.svelte';
+	import { getConfigurationSettingsMock } from '~/helpers/configurationSettings.svelte';
 
 	let initText = $state<Configuration | undefined>(undefined);
 	let currentText = $state<Configuration | undefined>(undefined);
 	let cancelChangesModal = $state(false);
 	let theme = $derived(getTheme());
-	let configurationSettings = $derived(INITIAL_CONFIGURATION_SETTINGS);
+	let configurationSettings = $derived(getConfigurationSettingsMock());
 	let configValue = $derived(
 		parseConfiguration(currentText || '', configurationSettings),
 	);

@@ -60,6 +60,12 @@ export function checkReservedWord(
 			}
 
 			break;
+		case 'weight':
+			if (depth !== 4) {
+				return false;
+			}
+
+			break;
 		case 'address':
 			if (parent !== 'listener' && parent !== 'admin' && depth !== 4) {
 				return false;
@@ -106,6 +112,12 @@ export function checkReservedWord(
 		case 'healthy_threshold':
 		case 'unhealhty_threshold':
 			if (parent !== 'health_check') {
+				return false;
+			}
+
+			break;
+		case 'backends':
+			if (depth !== 2) {
 				return false;
 			}
 
@@ -214,6 +226,8 @@ export function parseConfiguration(
 	data: Configuration,
 	settings: ConfigurationSettings,
 ): object | Error {
+	console.log(settings);
+
 	//Нужно для конфига
 	const config: Record<string, any> = {};
 	const parentsChain: string[] = [];
@@ -283,7 +297,7 @@ export function parseConfiguration(
 				break;
 			case settings.preComplexSymbol:
 				if (state === 2) {
-					return makeSyntaxError(stringIndex, columnIndex, ',');
+					return makeSyntaxError(stringIndex, columnIndex, String(settings.postSymbol));
 				}
 
 				if (!checkReservedWord(<ReservedWord>parent, depth, key)) {
@@ -323,7 +337,7 @@ export function parseConfiguration(
 				break;
 			case settings.postSymbol:
 				if (state !== 2) {
-					return makeSyntaxError(stringIndex, columnIndex, ':');
+					return makeSyntaxError(stringIndex, columnIndex, String(settings.divisionSymbol));
 				}
 
 				if (value === '') {

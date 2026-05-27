@@ -37,7 +37,8 @@
 	{:else if type === 'select' && selectOptions !== undefined}
 		<select class="form-field__select" onchange={onSelect}>
 			{#each selectOptions as option (option)}
-				<option selected={option === value} value={option}>{option}</option>
+				<option selected={option === value} value={option}
+					>{option}</option>
 			{/each}
 		</select>
 	{/if}
@@ -47,7 +48,7 @@
 	label {
 		cursor: default;
 	}
-	
+
 	.form-field {
 		display: flex;
 		flex-direction: column;

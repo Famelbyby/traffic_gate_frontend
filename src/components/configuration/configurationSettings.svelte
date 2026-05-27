@@ -3,8 +3,13 @@
 	import Form from '../form/form.svelte';
 	import { onMount } from 'svelte';
 	import type { ConfigurationSettings } from '~/types/configuration';
-	import { getConfigurationSettings, postConfigurationSettings } from '~/api/configurationPage/configuration';
+	import {
+		getConfigurationSettings,
+		postConfigurationSettings,
+	} from '~/api/configurationPage/configuration';
 	import ResultDisplay from './resultDisplay.svelte';
+	import { formatSettingsMock } from '~/helpers/formats';
+	import { CONFIGURATION_SETTINGS_OPTIONS } from '~/constants/configuration';
 
 	let preSymbolValue = $state<ConfigurationSettings['preSymbol']>('');
 	let postSymbolValue = $state<ConfigurationSettings['postSymbol']>('');
@@ -15,7 +20,16 @@
 	let indentValue = $state<ConfigurationSettings['indent']>('');
 	let divisionSymbolValue =
 		$state<ConfigurationSettings['divisionSymbol']>('');
-	let resultConfigMock = $derived('');
+	let resultConfigMock = $derived(
+		formatSettingsMock({
+			preSymbol: preSymbolValue,
+			postSymbol: postSymbolValue,
+			preComplexSymbol: preComplexSymbolValue,
+			postComplexSymbol: postComplexSymbolValue,
+			indent: indentValue,
+			divisionSymbol: divisionSymbolValue,
+		}),
+	);
 
 	async function getSettings() {
 		const {
@@ -56,7 +70,7 @@
 			preSymbolValue = value;
 			updateSettings();
 		},
-		selectOptions: ['-', '#', '$'],
+		selectOptions: CONFIGURATION_SETTINGS_OPTIONS.preSymbol,
 	});
 
 	const postSymbolField: Field = $derived({
@@ -69,7 +83,7 @@
 			postSymbolValue = value;
 			updateSettings();
 		},
-		selectOptions: [',', ';', '!', '?'],
+		selectOptions: CONFIGURATION_SETTINGS_OPTIONS.postSymbol,
 	});
 
 	const preComplexSymbolField: Field = $derived({
@@ -82,7 +96,7 @@
 			preComplexSymbolValue = value;
 			updateSettings();
 		},
-		selectOptions: ['{', '[', '('],
+		selectOptions: CONFIGURATION_SETTINGS_OPTIONS.preComplexSymbol,
 	});
 
 	const postComplexSymbolField: Field = $derived({
@@ -95,7 +109,7 @@
 			postComplexSymbolValue = value;
 			updateSettings();
 		},
-		selectOptions: ['}', ')', ']'],
+		selectOptions: CONFIGURATION_SETTINGS_OPTIONS.postComplexSymbol,
 	});
 
 	const indentField: Field = $derived({
@@ -108,7 +122,7 @@
 			indentValue = value;
 			updateSettings();
 		},
-		selectOptions: ['Нет', '1', '2'],
+		selectOptions: CONFIGURATION_SETTINGS_OPTIONS.indent,
 	});
 
 	const divisionSymbolField: Field = $derived({
@@ -121,7 +135,7 @@
 			divisionSymbolValue = value;
 			updateSettings();
 		},
-		selectOptions: [':', '_', '&'],
+		selectOptions: CONFIGURATION_SETTINGS_OPTIONS.divisionSymbol,
 	});
 
 	const settingsFields: Field[] = $derived([

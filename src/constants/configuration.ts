@@ -1,5 +1,6 @@
 import type {
 	ConfigurationSettings,
+	ConfigurationSettingsKeys,
 	ConfigurationWay,
 } from '~/types/configuration';
 
@@ -17,4 +18,13 @@ export const INITIAL_CONFIGURATION_SETTINGS: ConfigurationSettings = {
 	postComplexSymbol: '}',
 	indent: 1,
 	divisionSymbol: ':',
+};
+
+export const CONFIGURATION_SETTINGS_OPTIONS: Record<ConfigurationSettingsKeys, string[]> = {
+	preSymbol: ['-', '#', '$'],
+	postSymbol: [',', ';', '!', '?'],
+	preComplexSymbol: ['{', '[', '('],
+	postComplexSymbol: ['}', ')', ']'],
+	indent: ['Нет', '1', '2'],
+	divisionSymbol: [':', '%', '&'],
 };

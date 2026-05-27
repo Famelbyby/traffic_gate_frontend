@@ -3,8 +3,14 @@ import {
 	setConfigurationMock,
 } from '~/helpers/configurationMocking.svelte';
 import AxiosClient from '../AxiosClient';
-import type { Configuration, ConfigurationSettings } from '~/types/configuration';
-import { getConfigurationSettingsMock, setConfigurationSettingsMock } from '~/helpers/configurationSettings.svelte';
+import type {
+	Configuration,
+	ConfigurationSettings,
+} from '~/types/configuration';
+import {
+	getConfigurationSettingsMock,
+	setConfigurationSettingsMock,
+} from '~/helpers/configurationSettings.svelte';
 
 export async function getConfiguration() {
 	const result = await AxiosClient.get<Configuration>('/configuration');
@@ -32,7 +38,9 @@ export async function postConfiguration(data: Configuration) {
 }
 
 export async function getConfigurationSettings() {
-	const result = await AxiosClient.get<ConfigurationSettings>('/configuration/settings');
+	const result = await AxiosClient.get<ConfigurationSettings>(
+		'/configuration/settings',
+	);
 
 	if (result.error !== undefined) {
 		return getConfigurationSettingsMock();
@@ -42,7 +50,10 @@ export async function getConfigurationSettings() {
 }
 
 export async function postConfigurationSettings(data: ConfigurationSettings) {
-	const result = await AxiosClient.post<ConfigurationSettings, ConfigurationSettings>('/configuration/settings', data);
+	const result = await AxiosClient.post<
+		ConfigurationSettings,
+		ConfigurationSettings
+	>('/configuration/settings', data);
 
 	if (result.error !== undefined) {
 		setConfigurationSettingsMock(data);
