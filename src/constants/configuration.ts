@@ -21,7 +21,7 @@ export const INITIAL_CONFIGURATION_SETTINGS: ConfigurationSettings = {
 };
 
 export const CONFIGURATION_SETTINGS_OPTIONS: Record<ConfigurationSettingsKeys, string[]> = {
-	preSymbol: ['-', '#', '$'],
+	preSymbol: ['-', '#', '$', 'Нет'],
 	postSymbol: [',', ';', '!', '?'],
 	preComplexSymbol: ['{', '[', '('],
 	postComplexSymbol: ['}', ')', ']'],

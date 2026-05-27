@@ -30,7 +30,7 @@ export function formatSettingsMock(settings: ConfigurationSettings) {
 
 	return settingsResultMock
 		.replaceAll('preComplexKey', `${settings.preComplexSymbol}`)
-		.replaceAll('preKey', `${settings.preSymbol}`)
+		.replaceAll('preKey', `${settings.preSymbol === 'Нет' ? '' : settings.preSymbol}`)
 		.replaceAll('division', `${settings.divisionSymbol}`)
 		.replaceAll('postComplexKey', `${settings.postComplexSymbol}`)
 		.replaceAll('postKey', `${settings.postSymbol}`)

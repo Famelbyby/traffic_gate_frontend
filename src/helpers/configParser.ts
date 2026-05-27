@@ -427,8 +427,12 @@ export function parseConfiguration(
 
 				break;
 			default:
-				if ('!,:;&%$()[]{}#'.includes(data[i])) {
+				if ('!,:;&%$()[]{}#-'.includes(data[i])) {
 					return makeSyntaxError(stringIndex, columnIndex);
+				}
+
+				if (state === 1 && settings.preSymbol === 'Нет') {
+					state = 2;
 				}
 
 				if (state === 2 || state === 0) {
