@@ -189,7 +189,7 @@ export function checkFieldType(
 	return true;
 }
 
-type State = 0 | 1 | 2;
+type State = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 
 function makeSyntaxError(
 	stringIndex: number,
@@ -226,8 +226,6 @@ export function parseConfiguration(
 	data: Configuration,
 	settings: ConfigurationSettings,
 ): object | Error {
-	console.log(settings);
-
 	//Нужно для конфига
 	const config: Record<string, any> = {};
 	const parentsChain: string[] = [];
@@ -251,20 +249,75 @@ export function parseConfiguration(
 	for (let i = 0; i < data.length; ++i) {
 		++columnIndex;
 
+		if (data[i] === "\"") {
+			if (![3, 6].includes(state)) {
+				return makeSyntaxError(stringIndex, columnIndex, `${settings.divisionSymbol}`);
+			}
+
+			if (state === 3) {
+				state = 6;
+			} else {
+				state = 3;
+			}
+		}
+
+		if (data[i] === '\n') {
+			if (![0, 1, 4, 5].includes(state)) {
+				return makeSyntaxError(stringIndex, columnIndex);
+			}
+
+			++stringIndex;
+			columnIndex = 0;
+			tabCount = 0;
+			
+			if (state === 4) {
+				state = 1;
+			}
+
+			if (state === 5) {
+				if (depth === 0) {
+					state = 0;
+				} else {
+					state = 1;
+				}
+			}
+
+			continue;
+		}
+
+		if (data[i] === '\t') {
+			if (state !== 1) {
+				return makeSyntaxError(stringIndex, columnIndex);
+			}
+
+			++tabCount;
+
+			if (
+				settings.indent !== 'Нет' &&
+				tabCount !== depth * +settings.indent
+			) {
+				return makeTabError(
+					tabCount,
+					depth * +settings.indent,
+					stringIndex,
+					columnIndex,
+				);
+			}
+
+			continue;
+		}
+
+		if (state === 6) {
+			value += data[i];
+
+			continue;
+		}
+
 		switch (data[i]) {
 			case ' ':
 				continue;
-			case '\t':
-				++tabCount;
-				continue;
-			case '\n':
-				++stringIndex;
-				columnIndex = 0;
-				tabCount = 0;
-
-				continue;
 			case settings.postComplexSymbol:
-				if (state === 2) {
+				if (state !== 1) {
 					return makeSyntaxError(
 						stringIndex,
 						columnIndex,
@@ -276,15 +329,9 @@ export function parseConfiguration(
 					return makeSyntaxError(stringIndex, columnIndex);
 				}
 
-				if (depth === 0) {
-					return makeBadKeyError(stringIndex, columnIndex);
-				}
-
 				--depth;
 
-				if (state === 1 && depth === 0) {
-					state = 0;
-				}
+				state = 5;
 
 				parentsChain.pop();
 				parent = parentsChain.at(-1);
@@ -296,7 +343,7 @@ export function parseConfiguration(
 
 				break;
 			case settings.preComplexSymbol:
-				if (state === 2) {
+				if (![0, 2].includes(state)) {
 					return makeSyntaxError(stringIndex, columnIndex, String(settings.postSymbol));
 				}
 
@@ -307,18 +354,39 @@ export function parseConfiguration(
 				parent = key;
 				++depth;
 
-				if (state === 0) {
-					state = 1;
-				}
-
 				(currentContext ?? config)[key] = {};
 				currentContext = (currentContext ?? config)[key];
 				parentsChain.push(key);
 				parent = key;
 				key = '';
+				state = 4;
+
+				break;
+			case settings.preSymbol:
+				if (state !== 1) {
+					return makeSyntaxError(stringIndex, columnIndex);
+				}
+
+				if (
+					settings.indent !== 'Нет' &&
+					tabCount !== depth * +settings.indent
+				) {
+					return makeTabError(
+						tabCount,
+						depth * +settings.indent,
+						stringIndex,
+						columnIndex,
+					);
+				}
+
+				state = 2;
 
 				break;
 			case settings.divisionSymbol:
+				if (state !== 2) {
+					return makeSyntaxError(stringIndex, columnIndex, `${settings.preSymbol}`);
+				}
+
 				if (
 					!checkReservedWord(
 						<ReservedWord>parent,
@@ -329,14 +397,10 @@ export function parseConfiguration(
 					return makeBadKeyError(stringIndex, columnIndex);
 				}
 
-				if (state !== 1) {
-					return makeSyntaxError(stringIndex, columnIndex);
-				}
-
-				state = 2;
+				state = 3;
 				break;
 			case settings.postSymbol:
-				if (state !== 2) {
+				if (state !== 3) {
 					return makeSyntaxError(stringIndex, columnIndex, String(settings.divisionSymbol));
 				}
 
@@ -359,26 +423,18 @@ export function parseConfiguration(
 				currentContext[key] = value;
 				value = '';
 				key = '';
-				state = 1;
+				state = 5;
 
 				break;
 			default:
-				if (
-					settings.indent !== 'Нет' &&
-					tabCount !== depth * +settings.indent
-				) {
-					return makeTabError(
-						tabCount,
-						depth * +settings.indent,
-						stringIndex,
-						columnIndex,
-					);
+				if ('!,:;&%$()[]{}#'.includes(data[i])) {
+					return makeSyntaxError(stringIndex, columnIndex);
 				}
 
-				if (state === 2) {
-					value += data[i];
-				} else {
+				if (state === 2 || state === 0) {
 					key += data[i];
+				} else {
+					value += data[i];
 				}
 		}
 	}
