@@ -1,5 +1,3 @@
-export type MetricType = 'CPU' | 'RPS' | 'RAM';
-
 export type Metric = {
 	id: number;
 	title: string;
@@ -7,7 +5,7 @@ export type Metric = {
 	url: string;
 	workTime?: number;
 	removeMetric?: (metric: Metric) => void;
-	type: MetricType;
+	type: string;
 };
 
 export type CreateMetric = Pick<Metric, 'type' | 'url' | 'title'>;

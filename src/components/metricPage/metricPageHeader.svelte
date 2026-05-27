@@ -2,7 +2,7 @@
 	import { getTheme } from '~/helpers/theme.svelte';
 	import type { MetricPageHeader as Props } from '~/types/metricPage';
 
-	let { url }: Props = $props();
+	let { url, type }: Props = $props();
 
 	let theme = $derived(getTheme());
 </script>
@@ -13,7 +13,12 @@
 		href="/metrics">
 		Вернуться назад
 	</a>
-	Url: {url}
+	<div class="metric-page__url">
+		Путь: {url}
+	</div>
+	<div class="metric-page__type">
+		Тип: {type}
+	</div>
 </div>
 
 <style lang="scss" scoped>

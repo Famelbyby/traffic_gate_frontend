@@ -12,6 +12,7 @@ export type MetricPageGraph = CardProps & {
 
 export type MetricPageHeader = {
 	url: string;
+	type: string;
 };
 
 export type MetricStat = 'max' | 'min' | 'avg' | '99p' | 'time' | '50p';

@@ -21,7 +21,7 @@
 </script>
 
 <div class="metric-page-content">
-	<MetricPageHeader url={metricData.url} />
+	<MetricPageHeader url={metricData.url} type={metricData.type} />
 	{#if width && height}
 		<MetricPageGraph {...metricData} {width} {height} />
 		<RowStats {stats} isMetricPage={theme === 'light'} />

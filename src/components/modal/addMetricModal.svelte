@@ -4,13 +4,12 @@
 	import Form from '../form/form.svelte';
 	import type { Props } from '~/types/addMetricModal';
 	import type { Props as Field } from '~/types/formField';
-	import type { MetricType } from '~/types/metric';
 
 	let { closeModal, addMetric }: Props = $props();
 
 	let urlValue = $state('');
 	let titleValue = $state('');
-	let typeValue = $state<MetricType>('CPU');
+	let typeValue = $state('');
 
 	const urlField: Field = $derived({
 		label: 'URL',
@@ -41,11 +40,11 @@
 		name: 'metric_type',
 		id: 'metric_type',
 		value: typeValue,
-		type: 'select',
+		type: 'input',
+		placeholder: 'CPU',
 		updateValue: (value) => {
-			typeValue = <MetricType>value;
+			typeValue = value;
 		},
-		selectOptions: <MetricType[]>['CPU', 'RAM', 'RPS'],
 	});
 
 	const AddMetricFields: Field[] = $derived([
@@ -55,7 +54,7 @@
 	]);
 
 	function addMetricModal() {
-		if (titleValue === '' || urlValue === '') {
+		if (titleValue === '' || urlValue === '' || typeValue === '') {
 			return;
 		}
 
