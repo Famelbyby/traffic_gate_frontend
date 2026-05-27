@@ -7,17 +7,22 @@
 	import type { Configuration } from '~/types/configuration';
 	import {
 		getConfiguration,
+		getConfigurationSettings,
 		postConfiguration,
 	} from '~/api/configurationPage/configuration';
 	import { parseConfiguration } from '~/helpers/configParser';
+	import { INITIAL_CONFIGURATION_SETTINGS } from '~/constants/configuration';
+	import ResultDisplay from './resultDisplay.svelte';
 
 	let initText = $state<Configuration | undefined>(undefined);
 	let currentText = $state<Configuration | undefined>(undefined);
 	let cancelChangesModal = $state(false);
 	let theme = $derived(getTheme());
-	let configValue = $derived(parseConfiguration(currentText || ''));
+	let configurationSettings = $derived(INITIAL_CONFIGURATION_SETTINGS);
+	let configValue = $derived(
+		parseConfiguration(currentText || '', configurationSettings),
+	);
 	let error = $derived(configValue instanceof Error);
-
 	let ref = $state<HTMLTextAreaElement | null>(null);
 
 	function onChange(event: Event) {
@@ -78,8 +83,10 @@
 		document.addEventListener('keydown', tabClickCatcher);
 
 		const config = await getConfiguration();
+		const settings = await getConfigurationSettings();
 
 		initText = currentText = config;
+		configurationSettings = settings;
 	});
 
 	onDestroy(() => {
@@ -121,16 +128,7 @@
 					onClick={openModal} />
 			</div>
 		</div>
-		<div
-			class={`text-configuration-right ${error ? 'text-configuration-right_error' : ''} text-configuration-right_${theme}`}>
-			{#if configValue instanceof Error}
-				<span class="text-configuration-right__error"
-					>Ошибка: {configValue.message}</span>
-			{:else}
-				<span class="text-configuration-right__result">Результат:</span>
-				<pre>{JSON.stringify(configValue, null, ' ')}</pre>
-			{/if}
-		</div>
+		<ResultDisplay {error} {configValue} />
 		{#if cancelChangesModal}
 			<Modal {content} {footerButtons} {closeModal} />
 		{/if}
@@ -162,27 +160,6 @@
 		width: 100%;
 		max-width: 800px;
 		row-gap: 20px;
-	}
-
-	.text-configuration-right {
-		display: flex;
-		flex-direction: column;
-		flex-grow: 1;
-		border-radius: 10px;
-		padding: 5px 10px;
-		box-sizing: border-box;
-		border: 1px solid #8fff8f;
-		background: #8fff8f;
-	}
-
-	.text-configuration-right_dark {
-		border: 1px solid #6c9af5;
-		background: #6c9af5;
-	}
-
-	.text-configuration-right_error {
-		background: #ff7373;
-		border: 1px solid #ff7373;
 	}
 
 	.text-configuration_skeleton {

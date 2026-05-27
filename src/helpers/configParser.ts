@@ -1,5 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { Configuration } from '~/types/configuration';
+import type {
+	Configuration,
+	ConfigurationSettings,
+} from '~/types/configuration';
 
 export type ReservedWord =
 	| 'listener'
@@ -186,7 +189,31 @@ function makeSyntaxError(
 	);
 }
 
-export function parseConfiguration(data: Configuration): object | Error {
+function makeBadKeyError(stringIndex: number, columnIndex: number) {
+	return new Error(`Bad key at string ${stringIndex}, column ${columnIndex}`);
+}
+
+function makeTabError(
+	currentCount: number,
+	expectedCount: number,
+	stringIndex: number,
+	columnIndex: number,
+) {
+	if (currentCount < expectedCount) {
+		return makeSyntaxError(
+			stringIndex,
+			columnIndex,
+			'\\t'.repeat(expectedCount - currentCount),
+		);
+	}
+
+	return new Error(`Unexpected ${currentCount - expectedCount} tab`);
+}
+
+export function parseConfiguration(
+	data: Configuration,
+	settings: ConfigurationSettings,
+): object | Error {
 	//Нужно для конфига
 	const config: Record<string, any> = {};
 	const parentsChain: string[] = [];
@@ -195,6 +222,7 @@ export function parseConfiguration(data: Configuration): object | Error {
 	//Нужно для состояний автомата
 	let state: State = 0;
 	let depth = 0;
+	let tabCount = 0;
 
 	//Нужно для создания пар ключ-значение
 	let key = '';
@@ -211,16 +239,23 @@ export function parseConfiguration(data: Configuration): object | Error {
 
 		switch (data[i]) {
 			case ' ':
+				continue;
 			case '\t':
+				++tabCount;
 				continue;
 			case '\n':
 				++stringIndex;
 				columnIndex = 0;
+				tabCount = 0;
 
 				continue;
-			case '}':
+			case settings.postComplexSymbol:
 				if (state === 2) {
-					return makeSyntaxError(stringIndex, columnIndex, ',');
+					return makeSyntaxError(
+						stringIndex,
+						columnIndex,
+						String(settings.postSymbol),
+					);
 				}
 
 				if (key !== '') {
@@ -228,7 +263,7 @@ export function parseConfiguration(data: Configuration): object | Error {
 				}
 
 				if (depth === 0) {
-					return new Error('Bad key');
+					return makeBadKeyError(stringIndex, columnIndex);
 				}
 
 				--depth;
@@ -246,13 +281,13 @@ export function parseConfiguration(data: Configuration): object | Error {
 				});
 
 				break;
-			case '{':
+			case settings.preComplexSymbol:
 				if (state === 2) {
 					return makeSyntaxError(stringIndex, columnIndex, ',');
 				}
 
 				if (!checkReservedWord(<ReservedWord>parent, depth, key)) {
-					return new Error('Bad key');
+					return makeBadKeyError(stringIndex, columnIndex);
 				}
 
 				parent = key;
@@ -269,7 +304,7 @@ export function parseConfiguration(data: Configuration): object | Error {
 				key = '';
 
 				break;
-			case ':':
+			case settings.divisionSymbol:
 				if (
 					!checkReservedWord(
 						<ReservedWord>parent,
@@ -277,7 +312,7 @@ export function parseConfiguration(data: Configuration): object | Error {
 						<ReservedWord>key,
 					)
 				) {
-					return new Error('Bad key');
+					return makeBadKeyError(stringIndex, columnIndex);
 				}
 
 				if (state !== 1) {
@@ -286,19 +321,21 @@ export function parseConfiguration(data: Configuration): object | Error {
 
 				state = 2;
 				break;
-			case ',':
+			case settings.postSymbol:
 				if (state !== 2) {
 					return makeSyntaxError(stringIndex, columnIndex, ':');
 				}
 
 				if (value === '') {
 					return new Error(
-						`Value cannot be empty, string ${stringIndex}, column ${columnIndex}`,
+						`Value cannot be empty at string ${stringIndex}, column ${columnIndex}`,
 					);
 				}
 
 				if (!checkFieldType(<ReservedWord>key, value)) {
-					return new Error('Bad value type');
+					return new Error(
+						`Bad value type at string ${stringIndex}, column ${columnIndex}`,
+					);
 				}
 
 				if (currentContext === undefined) {
@@ -312,6 +349,18 @@ export function parseConfiguration(data: Configuration): object | Error {
 
 				break;
 			default:
+				if (
+					settings.indent !== 'Нет' &&
+					tabCount !== depth * +settings.indent
+				) {
+					return makeTabError(
+						tabCount,
+						depth * +settings.indent,
+						stringIndex,
+						columnIndex,
+					);
+				}
+
 				if (state === 2) {
 					value += data[i];
 				} else {

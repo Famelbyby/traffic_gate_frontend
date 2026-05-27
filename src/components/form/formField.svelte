@@ -37,17 +37,22 @@
 	{:else if type === 'select' && selectOptions !== undefined}
 		<select class="form-field__select" onchange={onSelect}>
 			{#each selectOptions as option (option)}
-				<option value={option}>{option}</option>
+				<option selected={option === value} value={option}>{option}</option>
 			{/each}
 		</select>
 	{/if}
 </div>
 
 <style lang="scss" scoped>
+	label {
+		cursor: default;
+	}
+	
 	.form-field {
 		display: flex;
 		flex-direction: column;
 		row-gap: 7px;
+		max-width: 400px;
 	}
 
 	.form-field__input {
@@ -65,6 +70,7 @@
 		padding: 5px;
 		border: 1px solid gray;
 		border-radius: 7px;
+		cursor: pointer;
 
 		&:focus-visible {
 			border: 1px solid black;

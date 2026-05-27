@@ -5,7 +5,7 @@ export type Props = {
 	type: FormField;
 	placeholder?: string;
 	id: string;
-	selectOptions?: string[];
+	selectOptions?: (string | number)[];
 	updateValue: (newValue: string) => void;
 };
 

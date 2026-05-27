@@ -1,5 +1,5 @@
 <script lang="ts">
-	import BlockConfiguration from '~/components/configuration/blockConfiguration.svelte';
+	import ConfigurationSettings from '~/components/configuration/configurationSettings.svelte';
 	import ConfigurationWays from '~/components/configuration/configurationWays.svelte';
 	import TextConfiguration from '~/components/configuration/textConfiguration.svelte';
 	import Header from '~/components/header/header.svelte';
@@ -19,8 +19,8 @@
 	<Hiddenable visibilityCondition={() => currentWay === 'text'}>
 		<TextConfiguration />
 	</Hiddenable>
-	<Hiddenable visibilityCondition={() => currentWay === 'block'}>
-		<BlockConfiguration />
+	<Hiddenable visibilityCondition={() => currentWay === 'settings'}>
+		<ConfigurationSettings />
 	</Hiddenable>
 </div>
 
