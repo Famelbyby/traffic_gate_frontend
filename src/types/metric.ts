@@ -1,7 +1,7 @@
 export type Metric = {
 	id: number;
 	title: string;
-	graphData: GraphPoint[];
+	graphsData: Graph[];
 	url: string;
 	workTime?: number;
 	removeMetric?: (metric: Metric) => void;
@@ -14,3 +14,13 @@ export type GraphPoint = {
 	value: number;
 	time: number;
 };
+
+export type Graph = {
+	points: GraphPoint[];
+	url: string;
+}
+
+export type GraphLine<T = number> = {
+	url: string;
+	graphValues: T[];
+}

@@ -1,15 +1,15 @@
 import type { ApexOptions } from 'apexcharts';
 import { getTheme } from './theme.svelte';
+import type { GraphLine } from '~/types/metric';
 
 export function generateApexOptions<T = string>(
-	title: string,
-	values: T[],
+	graphLines: GraphLine<T>[],
 	coords: string[],
 	height = 400,
 	width = 600,
 ) {
 	const theme = getTheme();
-	const mainColor = theme === 'light' ? '#ff6767' : '#6c9af5';
+	const mainColors = [theme === 'light' ? '#ff6767' : '#6c9af5', theme === 'light' ? '#bd2323' : '#2f5cb5', theme === 'light' ? '#feb3b3' : '#748cbd'];
 	const secondColor = theme === 'light' ? 'pink' : 'green';
 
 	return <ApexOptions>{
@@ -37,8 +37,8 @@ export function generateApexOptions<T = string>(
 			gradient: {
 				opacityFrom: 0.55,
 				opacityTo: 0,
-				shade: mainColor,
-				gradientToColors: [secondColor, mainColor],
+				shade: mainColors[0],
+				gradientToColors: [secondColor, mainColors[0]],
 			},
 		},
 		dataLabels: {
@@ -56,13 +56,11 @@ export function generateApexOptions<T = string>(
 				top: 0,
 			},
 		},
-		series: [
-			{
-				name: title,
-				data: values,
-				color: mainColor,
-			},
-		],
+		series: graphLines.map((graphLine, index) => ({
+			name: graphLine.url,
+			data: graphLine.graphValues,
+			color: mainColors[index % graphLines.length],
+		})),
 		xaxis: {
 			categories: coords,
 			labels: {

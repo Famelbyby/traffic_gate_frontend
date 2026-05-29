@@ -1,25 +1,25 @@
 import type { Metric } from '~/types/metric';
-import { generateGraphData } from './generateGraphData';
+import { generateGraphsData } from './generateGraphData';
 
 let METRICS_DATA_MOCK = $state<Metric[]>([
 	{
 		id: 0,
 		title: 'Bucket',
-		graphData: generateGraphData(),
+		graphsData: generateGraphsData(),
 		url: '/bucket',
 		type: 'RPS',
 	},
 	{
 		id: 1,
 		title: 'Orders',
-		graphData: generateGraphData(),
+		graphsData: generateGraphsData(),
 		url: '/orders',
 		type: 'CPU',
 	},
 	{
 		id: 2,
 		title: 'Moderation',
-		graphData: generateGraphData(),
+		graphsData: generateGraphsData(),
 		url: '/moderation',
 		type: 'RAM',
 	},

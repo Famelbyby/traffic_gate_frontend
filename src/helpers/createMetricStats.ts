@@ -9,8 +9,15 @@ import { getWorkTime } from './getWorkTime';
 import { FormatWorkTime } from './formats';
 
 export function createMetricStats(metricData: Metric) {
-	const values = metricData.graphData
-		.map((point) => point.value)
+	const flattenedValues: number[] = [];
+
+	metricData.graphsData.forEach((graphData) => {
+		graphData.points.forEach((point) => {
+			flattenedValues.push(point.value);
+		});
+	});
+
+	const values = flattenedValues
 		.sort((a, b) => a - b);
 	let sum = 0;
 

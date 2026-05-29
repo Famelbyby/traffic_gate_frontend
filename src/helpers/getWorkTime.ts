@@ -1,7 +1,7 @@
 import type { Metric } from '~/types/metric';
 
 export function getWorkTime(metric: Metric) {
-	const data = metric.graphData.map((point) => <number>point.time);
+	const data = metric.graphsData[0].points.map((point) => <number>point.time);
 
 	return data[data.length - 1] - data[0];
 }

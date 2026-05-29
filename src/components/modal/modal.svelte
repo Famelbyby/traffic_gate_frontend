@@ -2,9 +2,12 @@
 	import type { Props } from '~/types/modal';
 	import close from '~/lib/assets/close.png';
 	import { onDestroy, onMount } from 'svelte';
+	import { getTheme } from '~/helpers/theme.svelte';
 
 	let { header, content, footerButtons, closeModal, children }: Props =
 		$props();
+
+	let theme = $derived(getTheme());
 
 	let windowRef = $state<HTMLDivElement | null>(null);
 
@@ -28,7 +31,7 @@
 </script>
 
 <div class="modal-page">
-	<div class="modal-window" bind:this={windowRef}>
+	<div class={`modal-window modal-window_${theme}`} bind:this={windowRef}>
 		<button
 			type="button"
 			class="modal-close"
@@ -80,6 +83,10 @@
 		justify-content: space-around;
 		padding: 50px;
 		row-gap: 20px;
+	}
+
+	.modal-window_dark {
+		color: black;
 	}
 
 	.modal-close {

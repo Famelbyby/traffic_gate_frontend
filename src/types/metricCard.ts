@@ -1,6 +1,9 @@
-import type { CreateMetric, Metric } from './metric';
+import type { CreateMetric, Graph } from './metric';
 
-export type Props = Pick<Metric, 'graphData' | 'url'>;
+export type Props = {
+	graphsData: Graph[];
+	url: string;
+}
 
 export type AddMetricCard = {
 	pending: boolean;

@@ -48,7 +48,7 @@ export async function createMetric(data: CreateMetric) {
 			{
 				...data,
 				id: currentMetricsDataMock.length,
-				graphData: [],
+				graphsData: [],
 			},
 		]);
 

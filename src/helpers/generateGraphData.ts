@@ -1,4 +1,4 @@
-import type { GraphPoint } from '~/types/metric';
+import type { Graph, GraphPoint } from '~/types/metric';
 
 export function generateGraphData(num = 100, min = 0, max = 300) {
 	if (num < 0) {
@@ -15,6 +15,19 @@ export function generateGraphData(num = 100, min = 0, max = 300) {
 		data.push({
 			value: min + Math.floor(Math.random() * (max - min)),
 			time: Date.now(),
+		});
+	}
+
+	return data;
+}
+
+export function generateGraphsData(clusters = 3, num = 100, min = 0, max = 300) {
+	const data: Graph[] = [];
+
+	for (let i = 0; i < clusters; ++i) {
+		data.push({
+			url: `backends_service_${i}`,
+			points: generateGraphData(num, min, max),
 		});
 	}
 

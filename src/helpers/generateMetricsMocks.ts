@@ -1,4 +1,4 @@
-import type { GraphPoint } from '~/types/metric';
+import type { Graph } from '~/types/metric';
 import { generateGraphData } from './generateGraphData';
 import {
 	getMetricsDataMock,
@@ -6,19 +6,19 @@ import {
 } from './metricsMocking.svelte';
 
 export function updateGraphData(
-	graphData: GraphPoint[],
+	graphsData: Graph[],
 	num = 1,
 	min = 0,
 	max = 300,
 ) {
-	graphData.push(...generateGraphData(num, min, max));
+	graphsData.forEach((data) => data.points.push(...generateGraphData(num, min, max)));
 }
 
 export function generateMetricsMocks() {
 	const init = getMetricsDataMock();
 
 	init.forEach((metric) => {
-		updateGraphData(metric.graphData);
+		updateGraphData(metric.graphsData);
 	});
 
 	setMetricsDataMock(init);

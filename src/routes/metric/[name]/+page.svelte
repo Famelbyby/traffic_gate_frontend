@@ -39,7 +39,7 @@
 					return;
 				}
 
-				updateGraphData(metricData.graphData);
+				updateGraphData(metricData.graphsData);
 
 				metricData = { ...metricData };
 			}, 1000));
