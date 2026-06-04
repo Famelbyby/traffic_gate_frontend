@@ -21,7 +21,7 @@ export function generateGraphData(num = 100, min = 0, max = 300) {
 	return data;
 }
 
-export function generateGraphsData(clusters = 3, num = 100, min = 0, max = 300) {
+export function generateGraphsData(num = 100, clusters = 3, min = 0, max = 300) {
 	const data: Graph[] = [];
 
 	for (let i = 0; i < clusters; ++i) {

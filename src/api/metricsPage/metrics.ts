@@ -5,6 +5,7 @@ import {
 	getMetricsDataMock,
 	setMetricsDataMock,
 } from '~/helpers/metricsMocking.svelte';
+import { generateGraphsData } from '~/helpers/generateGraphData';
 
 export async function getMetrics() {
 	const result = await AxiosClient.get<Metric[]>('/metrics');
@@ -48,7 +49,7 @@ export async function createMetric(data: CreateMetric) {
 			{
 				...data,
 				id: currentMetricsDataMock.length,
-				graphsData: [],
+				graphsData: generateGraphsData(0),
 			},
 		]);
 
